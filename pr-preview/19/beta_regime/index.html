@@ -1,0 +1,2726 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="NASDAQ Heiken Ashi & RSI Divergence Screening Toolkit">
+      
+      
+      
+        <link rel="canonical" href="https://paulboys.github.io/HeikinAshi/beta_regime/">
+      
+      
+        <link rel="prev" href="../rsi_divergence/">
+      
+      
+        <link rel="next" href="../treasury_yields/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Beta Regime Screener - StockCharts</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#beta-regime-analysis" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="StockCharts" class="md-header__button md-logo" aria-label="StockCharts" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            StockCharts
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Beta Regime Screener
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="cyan"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/paulboys/HeikinAshi" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    paulboys/HeikinAshi
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../overview/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../quick_reference/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Quick Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../screener/" class="md-tabs__link">
+          
+  
+  
+  Screeners
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../treasury_yields/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Treasury Yield Tracker
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../parameters/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Parameters
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../volume/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Volume Filtering
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../timeframes/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Timeframes and Sensitivity
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contributing/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../copilot/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Copilot Guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../roadmap/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../legacy/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Legacy Mapping
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../DEPRECATION_NOTICE/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Deprecation Notice
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../disclaimer/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Disclaimer
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="StockCharts" class="md-nav__button md-logo" aria-label="StockCharts" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    StockCharts
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/paulboys/HeikinAshi" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    paulboys/HeikinAshi
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quick_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screeners
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Screeners
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../screener/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heiken Ashi Screener
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rsi_divergence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSI Divergence Screener
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beta Regime Screener
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beta Regime Screener
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#concept-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concept Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-beta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Beta?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relative-strength-regime-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relative Strength &amp; Regime Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLI Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#screen-for-beta-regime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen for Beta Regime
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot-beta-regime-chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plot Beta Regime Chart
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#analyze-a-single-ticker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analyze a Single Ticker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-multiple-tickers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen Multiple Tickers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compute-raw-beta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compute Raw Beta
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#screener-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screener Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-adjustment-for-weekly-interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto-Adjustment for Weekly Interval
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trading-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trading Applications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trading Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#risk-on-screening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risk-On Screening
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risk-off-screening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risk-Off Screening
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combining-with-other-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining with Other Signals
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#betaregimeresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BetaRegimeResult
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beta-percentile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Beta Percentile
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcglone-contrarian-sector-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        McGlone Contrarian Sector Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="McGlone Contrarian Sector Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mcglones-3-criteria-buy-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        McGlone's 3-Criteria Buy System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signal-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signal Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#available-etf-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available ETF Categories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-beta-regime-screener" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration with Beta Regime Screener
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../treasury_yields/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Treasury Yield Tracker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parameters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parameters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../volume/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Volume Filtering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../timeframes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timeframes and Sensitivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/divergence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Divergence Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pivots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pivot Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/rsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSI Indicator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/beta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beta Indicators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/screener/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screener Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/beta_regime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beta Regime Screener
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Fetching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/macro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Treasury Macro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/heiken_runs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heiken Ashi Runs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../copilot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copilot Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../legacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Legacy Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DEPRECATION_NOTICE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deprecation Notice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../disclaimer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disclaimer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#concept-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concept Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-beta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Beta?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relative-strength-regime-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relative Strength &amp; Regime Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLI Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#screen-for-beta-regime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen for Beta Regime
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot-beta-regime-chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plot Beta Regime Chart
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#analyze-a-single-ticker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analyze a Single Ticker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-multiple-tickers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen Multiple Tickers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compute-raw-beta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compute Raw Beta
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#screener-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screener Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-adjustment-for-weekly-interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto-Adjustment for Weekly Interval
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trading-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trading Applications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trading Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#risk-on-screening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risk-On Screening
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risk-off-screening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risk-Off Screening
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combining-with-other-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining with Other Signals
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#betaregimeresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BetaRegimeResult
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beta-percentile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Beta Percentile
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcglone-contrarian-sector-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        McGlone Contrarian Sector Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="McGlone Contrarian Sector Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mcglones-3-criteria-buy-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        McGlone's 3-Criteria Buy System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signal-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signal Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#available-etf-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available ETF Categories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-beta-regime-screener" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration with Beta Regime Screener
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="beta-regime-analysis">Beta Regime Analysis<a class="headerlink" href="#beta-regime-analysis" title="Permanent link">&para;</a></h1>
+<p>The Beta Regime module helps identify market risk-on/risk-off conditions by analyzing the relative strength of individual stocks compared to a benchmark (typically SPY).</p>
+<h2 id="concept-overview">Concept Overview<a class="headerlink" href="#concept-overview" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-beta">What is Beta?<a class="headerlink" href="#what-is-beta" title="Permanent link">&para;</a></h3>
+<p>Beta (β) measures the volatility of a stock relative to a benchmark index:</p>
+<p>$$\beta = \frac{\text{Cov}(r_{\text{asset}}, r_{\text{benchmark}})}{\text{Var}(r_{\text{benchmark}})}$$</p>
+<ul>
+<li><strong>β &gt; 1</strong>: Stock is more volatile than the benchmark (amplifies market moves)</li>
+<li><strong>β &lt; 1</strong>: Stock is less volatile than the benchmark (dampens market moves)</li>
+<li><strong>β ≈ 1</strong>: Stock moves roughly in line with the benchmark</li>
+<li><strong>β &lt; 0</strong>: Stock moves inversely to the benchmark (rare for stocks)</li>
+</ul>
+<h3 id="relative-strength-regime-detection">Relative Strength &amp; Regime Detection<a class="headerlink" href="#relative-strength-regime-detection" title="Permanent link">&para;</a></h3>
+<p>The regime detection uses a <strong>relative strength ratio</strong>:</p>
+<p>$$RS = \frac{\text{Asset Price}}{\text{Benchmark Price}}$$</p>
+<p>This ratio is then compared to its moving average:</p>
+<ul>
+<li><strong>Risk-On</strong>: RS above its moving average → Asset outperforming benchmark</li>
+<li><strong>Risk-Off</strong>: RS below its moving average → Asset underperforming benchmark</li>
+</ul>
+<h2 id="cli-commands">CLI Commands<a class="headerlink" href="#cli-commands" title="Permanent link">&para;</a></h2>
+<h3 id="screen-for-beta-regime">Screen for Beta Regime<a class="headerlink" href="#screen-for-beta-regime" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Screen all NASDAQ stocks</span>
+stockcharts-beta-regime
+
+<span class="c1"># Filter for risk-on stocks only</span>
+stockcharts-beta-regime<span class="w"> </span>--regime<span class="w"> </span>risk-on
+
+<span class="c1"># Screen weekly charts against QQQ benchmark</span>
+stockcharts-beta-regime<span class="w"> </span>--benchmark<span class="w"> </span>QQQ<span class="w"> </span>--interval<span class="w"> </span>1wk
+
+<span class="c1"># Apply price and volume filters</span>
+stockcharts-beta-regime<span class="w"> </span>--min-price<span class="w"> </span><span class="m">10</span><span class="w"> </span>--max-price<span class="w"> </span><span class="m">100</span><span class="w"> </span>--min-volume<span class="w"> </span><span class="m">500000</span>
+
+<span class="c1"># Save results to CSV</span>
+stockcharts-beta-regime<span class="w"> </span>--output<span class="w"> </span>results.csv
+</code></pre></div>
+
+<h3 id="plot-beta-regime-chart">Plot Beta Regime Chart<a class="headerlink" href="#plot-beta-regime-chart" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Plot a single ticker</span>
+stockcharts-plot-beta<span class="w"> </span>AAPL
+
+<span class="c1"># Compare against QQQ instead of SPY</span>
+stockcharts-plot-beta<span class="w"> </span>AAPL<span class="w"> </span>--benchmark<span class="w"> </span>QQQ
+
+<span class="c1"># Use weekly interval with custom MA period</span>
+stockcharts-plot-beta<span class="w"> </span>AAPL<span class="w"> </span>--interval<span class="w"> </span>1wk<span class="w"> </span>--ma-period<span class="w"> </span><span class="m">40</span>
+
+<span class="c1"># Save chart to file</span>
+stockcharts-plot-beta<span class="w"> </span>AAPL<span class="w"> </span>--output<span class="w"> </span>aapl_beta.png
+</code></pre></div>
+
+<h2 id="python-api">Python API<a class="headerlink" href="#python-api" title="Permanent link">&para;</a></h2>
+<h3 id="analyze-a-single-ticker">Analyze a Single Ticker<a class="headerlink" href="#analyze-a-single-ticker" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">stockcharts.indicators.beta</span><span class="w"> </span><span class="kn">import</span> <span class="n">analyze_beta_regime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">stockcharts.data.fetch</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_ohlc</span>
+
+<span class="c1"># Fetch data</span>
+<span class="n">asset_df</span> <span class="o">=</span> <span class="n">fetch_ohlc</span><span class="p">(</span><span class="s2">"AAPL"</span><span class="p">,</span> <span class="n">lookback</span><span class="o">=</span><span class="s2">"2y"</span><span class="p">)</span>
+<span class="n">benchmark_df</span> <span class="o">=</span> <span class="n">fetch_ohlc</span><span class="p">(</span><span class="s2">"SPY"</span><span class="p">,</span> <span class="n">lookback</span><span class="o">=</span><span class="s2">"2y"</span><span class="p">)</span>
+
+<span class="c1"># Analyze regime</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">analyze_beta_regime</span><span class="p">(</span>
+    <span class="n">asset_df</span><span class="p">,</span>
+    <span class="n">benchmark_df</span><span class="p">,</span>
+    <span class="n">ma_period</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">beta_window</span><span class="o">=</span><span class="mi">60</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Regime: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'regime'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Relative Strength: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'rs_current'</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"200 MA: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'rs_ma_current'</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"% from MA: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'pct_from_ma'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Beta: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'beta'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Beta Percentile: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'beta_percentile'</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="screen-multiple-tickers">Screen Multiple Tickers<a class="headerlink" href="#screen-multiple-tickers" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">stockcharts.screener.beta_regime</span><span class="w"> </span><span class="kn">import</span> <span class="n">screen_beta_regime</span><span class="p">,</span> <span class="n">save_results_to_csv</span>
+
+<span class="c1"># Screen all NASDAQ for risk-on stocks</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">screen_beta_regime</span><span class="p">(</span>
+    <span class="n">benchmark</span><span class="o">=</span><span class="s2">"SPY"</span><span class="p">,</span>
+    <span class="n">regime_filter</span><span class="o">=</span><span class="s2">"risk-on"</span><span class="p">,</span>
+    <span class="n">min_price</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">min_volume</span><span class="o">=</span><span class="mi">500000</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="c1"># Display results</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">ticker</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">regime</span><span class="si">}</span><span class="s2"> (RS: </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">relative_strength</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, β: </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">beta</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+
+<span class="c1"># Save to CSV</span>
+<span class="n">save_results_to_csv</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="s2">"risk_on_stocks.csv"</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="compute-raw-beta">Compute Raw Beta<a class="headerlink" href="#compute-raw-beta" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">stockcharts.indicators.beta</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_rolling_beta</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">stockcharts.data.fetch</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_ohlc</span>
+
+<span class="n">asset_df</span> <span class="o">=</span> <span class="n">fetch_ohlc</span><span class="p">(</span><span class="s2">"AAPL"</span><span class="p">,</span> <span class="n">lookback</span><span class="o">=</span><span class="s2">"2y"</span><span class="p">)</span>
+<span class="n">benchmark_df</span> <span class="o">=</span> <span class="n">fetch_ohlc</span><span class="p">(</span><span class="s2">"SPY"</span><span class="p">,</span> <span class="n">lookback</span><span class="o">=</span><span class="s2">"2y"</span><span class="p">)</span>
+
+<span class="c1"># 60-day rolling beta</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="n">compute_rolling_beta</span><span class="p">(</span>
+    <span class="n">asset_df</span><span class="p">[</span><span class="s2">"Close"</span><span class="p">],</span>
+    <span class="n">benchmark_df</span><span class="p">[</span><span class="s2">"Close"</span><span class="p">],</span>
+    <span class="n">window</span><span class="o">=</span><span class="mi">60</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Current 60-day Beta: </span><span class="si">{</span><span class="n">beta</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
+<h3 id="screener-parameters">Screener Parameters<a class="headerlink" href="#screener-parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>benchmark</code></td>
+<td>"SPY"</td>
+<td>Benchmark ticker (SPY, QQQ, etc.)</td>
+</tr>
+<tr>
+<td><code>interval</code></td>
+<td>"1d"</td>
+<td>Candle interval: "1d", "1wk", "1mo"</td>
+</tr>
+<tr>
+<td><code>ma_period</code></td>
+<td>200</td>
+<td>Moving average period for regime detection</td>
+</tr>
+<tr>
+<td><code>beta_window</code></td>
+<td>60</td>
+<td>Rolling window for beta calculation</td>
+</tr>
+<tr>
+<td><code>regime_filter</code></td>
+<td>"all"</td>
+<td>Filter: "risk-on", "risk-off", "all"</td>
+</tr>
+<tr>
+<td><code>min_price</code></td>
+<td>None</td>
+<td>Minimum stock price filter</td>
+</tr>
+<tr>
+<td><code>max_price</code></td>
+<td>None</td>
+<td>Maximum stock price filter</td>
+</tr>
+<tr>
+<td><code>min_volume</code></td>
+<td>None</td>
+<td>Minimum average volume filter</td>
+</tr>
+<tr>
+<td><code>batch_size</code></td>
+<td>50</td>
+<td>Tickers per batch download</td>
+</tr>
+</tbody>
+</table>
+<h3 id="auto-adjustment-for-weekly-interval">Auto-Adjustment for Weekly Interval<a class="headerlink" href="#auto-adjustment-for-weekly-interval" title="Permanent link">&para;</a></h3>
+<p>When using <code>--interval 1wk</code> with <code>ma_period=200</code>, the period automatically adjusts to 40 weeks (equivalent to ~200 trading days).</p>
+<h2 id="trading-applications">Trading Applications<a class="headerlink" href="#trading-applications" title="Permanent link">&para;</a></h2>
+<h3 id="risk-on-screening">Risk-On Screening<a class="headerlink" href="#risk-on-screening" title="Permanent link">&para;</a></h3>
+<p>Find stocks that are outperforming the market:</p>
+<div class="codehilite"><pre><span></span><code>stockcharts-beta-regime<span class="w"> </span>--regime<span class="w"> </span>risk-on<span class="w"> </span>--min-volume<span class="w"> </span><span class="m">1000000</span>
+</code></pre></div>
+
+<p>These stocks are showing relative strength and may continue to outperform.</p>
+<h3 id="risk-off-screening">Risk-Off Screening<a class="headerlink" href="#risk-off-screening" title="Permanent link">&para;</a></h3>
+<p>Find stocks that are underperforming:</p>
+<div class="codehilite"><pre><span></span><code>stockcharts-beta-regime<span class="w"> </span>--regime<span class="w"> </span>risk-off<span class="w"> </span>--min-price<span class="w"> </span><span class="m">20</span>
+</code></pre></div>
+
+<p>These stocks are showing relative weakness; consider for mean-reversion or avoiding longs.</p>
+<h3 id="combining-with-other-signals">Combining with Other Signals<a class="headerlink" href="#combining-with-other-signals" title="Permanent link">&para;</a></h3>
+<p>Use beta regime as a filter with RSI divergence:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">stockcharts.screener.beta_regime</span><span class="w"> </span><span class="kn">import</span> <span class="n">screen_beta_regime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">stockcharts.screener.rsi_divergence</span><span class="w"> </span><span class="kn">import</span> <span class="n">screen_rsi_divergence</span>
+
+<span class="c1"># First find risk-off stocks (underperforming)</span>
+<span class="n">weak_stocks</span> <span class="o">=</span> <span class="n">screen_beta_regime</span><span class="p">(</span><span class="n">regime_filter</span><span class="o">=</span><span class="s2">"risk-off"</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">weak_tickers</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">ticker</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">weak_stocks</span><span class="p">]</span>
+
+<span class="c1"># Then check for bullish divergences (potential reversal)</span>
+<span class="n">divergences</span> <span class="o">=</span> <span class="n">screen_rsi_divergence</span><span class="p">(</span>
+    <span class="n">tickers</span><span class="o">=</span><span class="n">weak_tickers</span><span class="p">,</span>
+    <span class="n">divergence_type</span><span class="o">=</span><span class="s2">"bullish"</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h2 id="output-fields">Output Fields<a class="headerlink" href="#output-fields" title="Permanent link">&para;</a></h2>
+<h3 id="betaregimeresult">BetaRegimeResult<a class="headerlink" href="#betaregimeresult" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ticker</code></td>
+<td>str</td>
+<td>Stock symbol</td>
+</tr>
+<tr>
+<td><code>company_name</code></td>
+<td>str</td>
+<td>Company name</td>
+</tr>
+<tr>
+<td><code>benchmark</code></td>
+<td>str</td>
+<td>Benchmark used</td>
+</tr>
+<tr>
+<td><code>regime</code></td>
+<td>str</td>
+<td>"risk-on" or "risk-off"</td>
+</tr>
+<tr>
+<td><code>relative_strength</code></td>
+<td>float</td>
+<td>Current RS ratio</td>
+</tr>
+<tr>
+<td><code>ma_value</code></td>
+<td>float</td>
+<td>RS moving average value</td>
+</tr>
+<tr>
+<td><code>pct_from_ma</code></td>
+<td>float</td>
+<td>Percentage distance from MA</td>
+</tr>
+<tr>
+<td><code>beta</code></td>
+<td>float</td>
+<td>Rolling beta value</td>
+</tr>
+<tr>
+<td><code>beta_percentile</code></td>
+<td>float</td>
+<td>Percentile rank (0-100) of current beta within historical distribution</td>
+</tr>
+<tr>
+<td><code>close_price</code></td>
+<td>float</td>
+<td>Current close price</td>
+</tr>
+<tr>
+<td><code>benchmark_price</code></td>
+<td>float</td>
+<td>Current benchmark price</td>
+</tr>
+<tr>
+<td><code>interval</code></td>
+<td>str</td>
+<td>Time interval used</td>
+</tr>
+<tr>
+<td><code>ma_period</code></td>
+<td>int</td>
+<td>MA period used</td>
+</tr>
+</tbody>
+</table>
+<h3 id="beta-percentile">Beta Percentile<a class="headerlink" href="#beta-percentile" title="Permanent link">&para;</a></h3>
+<p>The <code>beta_percentile</code> field shows where the current beta ranks within its historical distribution:</p>
+<p>$$\text{Percentile} = \frac{\text{Values} \leq \text{Current Beta}}{\text{Total Values}} \times 100$$</p>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li><strong>β-percentile &gt; 90%</strong>: Beta is at historically elevated levels (high volatility environment)</li>
+<li><strong>β-percentile &lt; 25%</strong>: Beta is at historically low levels (unusual calm)</li>
+<li><strong>β-percentile ~ 50%</strong>: Beta is near its historical median</li>
+</ul>
+<p><strong>Trading Applications:</strong></p>
+<ol>
+<li><strong>Mean Reversion</strong>: High beta percentile with risk-off may signal capitulation</li>
+<li><strong>Low Volatility Alert</strong>: Low beta percentile can precede volatility expansion</li>
+<li><strong>Regime Context</strong>: Combine with regime for richer analysis</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Find risk-off stocks with historically elevated beta (potential capitulation)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">stockcharts.screener.beta_regime</span><span class="w"> </span><span class="kn">import</span> <span class="n">screen_beta_regime</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">screen_beta_regime</span><span class="p">(</span><span class="n">regime_filter</span><span class="o">=</span><span class="s2">"risk-off"</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">capitulation</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">beta_percentile</span> <span class="o">&gt;</span> <span class="mi">90</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">capitulation</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">ticker</span><span class="si">}</span><span class="s2">: β=</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">beta</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">beta_percentile</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">th percentile)"</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="mcglone-contrarian-sector-analysis">McGlone Contrarian Sector Analysis<a class="headerlink" href="#mcglone-contrarian-sector-analysis" title="Permanent link">&para;</a></h2>
+<p>The <code>scripts/sector_regime.py</code> script implements Mike McGlone's contrarian framework for timing equity sector entry.</p>
+<h3 id="mcglones-3-criteria-buy-system">McGlone's 3-Criteria Buy System<a class="headerlink" href="#mcglones-3-criteria-buy-system" title="Permanent link">&para;</a></h3>
+<p>Mike McGlone (Bloomberg Intelligence) advocates a <strong>contrarian</strong> approach:</p>
+<ol>
+<li><strong>Beta below 200-day MA</strong> (Risk-Off regime) - Sector underperforming SPY</li>
+<li><strong>VIX spike to 30-40</strong> - Fear at extreme levels</li>
+<li><strong>Market correction ≥ 10%</strong> - Prices discounted from 52-week highs</li>
+</ol>
+<p><strong>BUY signal = All 3 conditions met</strong> (capitulation complete)</p>
+<h3 id="signal-types">Signal Types<a class="headerlink" href="#signal-types" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Meaning</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BUY</code></td>
+<td>All 3 conditions met</td>
+<td>Enter positions - capitulation complete</td>
+</tr>
+<tr>
+<td><code>WATCH_BUY</code></td>
+<td>2/3 conditions met</td>
+<td>Prepare to buy, wait for final trigger</td>
+</tr>
+<tr>
+<td><code>ACCUMULATE</code></td>
+<td>Risk-off + pullback (5-10%)</td>
+<td>Scale in slowly</td>
+</tr>
+<tr>
+<td><code>WATCH</code></td>
+<td>Deep risk-off (&gt;10% below MA)</td>
+<td>Approaching buy zone</td>
+</tr>
+<tr>
+<td><code>WAIT</code></td>
+<td>Risk-off but no capitulation</td>
+<td>Patient - no action yet</td>
+</tr>
+<tr>
+<td><code>HOLD</code></td>
+<td>Risk-on uptrend</td>
+<td>Hold existing positions</td>
+</tr>
+<tr>
+<td><code>EXTENDED</code></td>
+<td>Far above MA (&gt;15%)</td>
+<td>Risky to chase</td>
+</tr>
+<tr>
+<td><code>NEUTRAL</code></td>
+<td>No clear signal</td>
+<td>No action</td>
+</tr>
+</tbody>
+</table>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Analyze 11 S&amp;P 500 GICS sectors</span>
+python<span class="w"> </span>scripts/sector_regime.py
+
+<span class="c1"># Industry sub-sectors (XBI, KRE, XHB, etc.)</span>
+python<span class="w"> </span>scripts/sector_regime.py<span class="w"> </span>--industries
+
+<span class="c1"># SmallCap sector ETFs (PSC* series)</span>
+python<span class="w"> </span>scripts/sector_regime.py<span class="w"> </span>--smallcap
+
+<span class="c1"># Leveraged Bull/Bear ETFs (2x/3x)</span>
+python<span class="w"> </span>scripts/sector_regime.py<span class="w"> </span>--leveraged
+
+<span class="c1"># Sectors + Industries combined</span>
+python<span class="w"> </span>scripts/sector_regime.py<span class="w"> </span>--all
+
+<span class="c1"># All 90+ ETFs comprehensive</span>
+python<span class="w"> </span>scripts/sector_regime.py<span class="w"> </span>--comprehensive
+</code></pre></div>
+
+<h3 id="available-etf-categories">Available ETF Categories<a class="headerlink" href="#available-etf-categories" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Count</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S&amp;P 500 GICS Sectors</td>
+<td>11</td>
+<td>XLK, XLF, XLE, XLV, XLI, etc.</td>
+</tr>
+<tr>
+<td>S&amp;P 500 Industries</td>
+<td>18</td>
+<td>XBI, KRE, XHB, XRT, XOP, etc.</td>
+</tr>
+<tr>
+<td>SmallCap Sectors</td>
+<td>9</td>
+<td>PSCT, PSCF, PSCE, PSCH, etc.</td>
+</tr>
+<tr>
+<td>iShares Sectors</td>
+<td>4</td>
+<td>IGM, IGV, IGE, IYT</td>
+</tr>
+<tr>
+<td>Leveraged Bull (2x/3x)</td>
+<td>24</td>
+<td>TECL, FAS, ERX, LABU, etc.</td>
+</tr>
+<tr>
+<td>Leveraged Bear (2x/3x)</td>
+<td>18</td>
+<td>TECS, FAZ, ERY, LABD, etc.</td>
+</tr>
+<tr>
+<td>Thematic</td>
+<td>6</td>
+<td>PILL, TEXU, etc.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example-output">Example Output<a class="headerlink" href="#example-output" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="o">===============================================================================</span>
+<span class="n">MARKET</span><span class="w"> </span><span class="n">CONDITIONS</span><span class="w"> </span><span class="p">(</span><span class="n">McGlone</span><span class="s1">'s 3 Criteria)</span>
+<span class="o">-------------------------------------------------------------------------------</span>
+<span class="w">  </span><span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="n">VIX</span><span class="w"> </span><span class="n">Spike</span><span class="w"> </span><span class="p">(</span><span class="o">&gt;=</span><span class="mi">30</span><span class="p">):</span><span class="w">     </span><span class="n">VIX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">20.4</span><span class="w"> </span><span class="p">(</span><span class="n">ELEVATED</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">NO</span>
+<span class="w">  </span><span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="n">Correction</span><span class="w"> </span><span class="p">(</span><span class="o">&gt;=-</span><span class="mi">10</span><span class="o">%</span><span class="p">):</span><span class="w"> </span><span class="n">SPY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">$</span><span class="mf">595.23</span><span class="p">,</span><span class="w"> </span><span class="n">Drawdown</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mf">1.0</span><span class="o">%</span><span class="w"> </span><span class="p">(</span><span class="n">NEAR_HIGHS</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">NO</span>
+<span class="w">  </span><span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="n">Risk</span><span class="o">-</span><span class="n">Off</span><span class="w"> </span><span class="n">Regime</span><span class="p">:</span><span class="w">   </span><span class="p">(</span><span class="n">See</span><span class="w"> </span><span class="n">sector</span><span class="w"> </span><span class="n">analysis</span><span class="w"> </span><span class="n">below</span><span class="p">)</span>
+
+<span class="w">  </span><span class="n">MARKET</span><span class="o">-</span><span class="n">LEVEL</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="o">/</span><span class="mi">2</span><span class="w"> </span><span class="n">macro</span><span class="w"> </span><span class="n">conditions</span><span class="w"> </span><span class="n">met</span>
+<span class="w">     </span><span class="n">WAIT</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">No</span><span class="w"> </span><span class="n">capitulation</span><span class="w"> </span><span class="n">signals</span><span class="w"> </span><span class="n">yet</span>
+
+<span class="o">===============================================================================</span>
+<span class="n">S</span><span class="o">&amp;</span><span class="n">P</span><span class="w"> </span><span class="mi">500</span><span class="w"> </span><span class="n">GICS</span><span class="w"> </span><span class="n">SECTORS</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">McGlone</span><span class="w"> </span><span class="n">Contrarian</span><span class="w"> </span><span class="n">Analysis</span>
+<span class="o">===============================================================================</span>
+
+<span class="n">Sector</span><span class="o">/</span><span class="n">Industry</span><span class="w">      </span><span class="n">ETF</span><span class="w">   </span><span class="n">Beta</span><span class="w">  </span><span class="n">Regime</span><span class="w">   </span><span class="o">%</span><span class="n">FromMA</span><span class="w">  </span><span class="n">Signal</span><span class="w">       </span><span class="n">Action</span>
+<span class="o">-------------------------------------------------------------------------------</span>
+<span class="n">Utilities</span><span class="w">            </span><span class="n">XLU</span><span class="w">    </span><span class="mf">0.45</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">risk</span><span class="o">-</span><span class="n">off</span><span class="w">   </span><span class="o">-</span><span class="mf">4.2</span><span class="o">%</span><span class="w"> </span><span class="n">WAIT</span>
+<span class="n">Materials</span><span class="w">            </span><span class="n">XLB</span><span class="w">    </span><span class="mf">1.12</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">risk</span><span class="o">-</span><span class="n">off</span><span class="w">   </span><span class="o">-</span><span class="mf">2.8</span><span class="o">%</span><span class="w"> </span><span class="n">WAIT</span>
+<span class="n">Energy</span><span class="w">               </span><span class="n">XLE</span><span class="w">    </span><span class="mf">1.25</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">risk</span><span class="o">-</span><span class="n">on</span><span class="w">    </span><span class="o">+</span><span class="mf">3.5</span><span class="o">%</span><span class="w"> </span><span class="n">NEUTRAL</span>
+<span class="n">Technology</span><span class="w">           </span><span class="n">XLK</span><span class="w">    </span><span class="mf">1.35</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">risk</span><span class="o">-</span><span class="n">on</span><span class="w">   </span><span class="o">+</span><span class="mf">12.1</span><span class="o">%</span><span class="w"> </span><span class="n">HOLD</span><span class="w">          </span>
+<span class="n">Financials</span><span class="w">           </span><span class="n">XLF</span><span class="w">    </span><span class="mf">1.10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">risk</span><span class="o">-</span><span class="n">on</span><span class="w">   </span><span class="o">+</span><span class="mf">18.5</span><span class="o">%</span><span class="w"> </span><span class="n">EXTENDED</span><span class="w">      </span><span class="o">!</span>
+</code></pre></div>
+
+<h3 id="integration-with-beta-regime-screener">Integration with Beta Regime Screener<a class="headerlink" href="#integration-with-beta-regime-screener" title="Permanent link">&para;</a></h3>
+<p>The sector regime script uses the same underlying <code>screen_beta_regime()</code> function with optimized defaults for McGlone's methodology:</p>
+<ul>
+<li><strong>Period</strong>: 10 years (stable relative strength history)</li>
+<li><strong>Interval</strong>: Weekly (<code>1wk</code>) with 40-bar MA (≈200 daily bars)</li>
+<li><strong>Benchmark</strong>: SPY</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">stockcharts.screener.beta_regime</span><span class="w"> </span><span class="kn">import</span> <span class="n">screen_beta_regime</span>
+
+<span class="c1"># Run the same analysis programmatically</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">screen_beta_regime</span><span class="p">(</span>
+    <span class="n">tickers</span><span class="o">=</span><span class="p">[</span><span class="s2">"XLK"</span><span class="p">,</span> <span class="s2">"XLF"</span><span class="p">,</span> <span class="s2">"XLE"</span><span class="p">,</span> <span class="s2">"XLV"</span><span class="p">,</span> <span class="s2">"XLI"</span><span class="p">],</span>
+    <span class="n">interval</span><span class="o">=</span><span class="s2">"1wk"</span><span class="p">,</span>
+    <span class="n">lookback</span><span class="o">=</span><span class="s2">"10y"</span><span class="p">,</span>
+    <span class="n">regime_filter</span><span class="o">=</span><span class="s2">"all"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">ticker</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">regime</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">pct_from_ma</span><span class="si">:</span><span class="s2">+.1f</span><span class="si">}</span><span class="s2">%)"</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2025 StockCharts
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/paulboys/HeikinAshi" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://pypi.org/project/stockcharts/" target="_blank" rel="noopener" title="pypi.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6M286.2 444.7a20.4 20.4 0 1 1 0-40.7 20.4 20.4 0 1 1 0 40.7M167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4m-6.6-183.4a20.4 20.4 0 1 1 0 40.8 20.4 20.4 0 1 1 0-40.8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.tabs", "navigation.instant", "content.code.copy", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
