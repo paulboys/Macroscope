@@ -337,14 +337,14 @@ def fetch_ohlc(
 
     # --- Try cache first (incremental update) ---
     if use_cache:
-        cached = load_cached(ticker, interval)
+        cached = load_cached(ticker, interval, auto_adjust=auto_adjust)
         if cached is not None and not cached.empty:
             # 1) FRESHNESS FIRST.  If the file was written after the
             #    last market close, no new bars can possibly exist —
             #    return immediately regardless of lookback.  This
             #    prevents re-downloading for "max" when the cache
             #    already holds all available data.
-            if _is_cache_fresh(ticker, interval):
+            if _is_cache_fresh(ticker, interval, auto_adjust=auto_adjust):
                 logger.debug("%s: cache is fresh, skipping network", ticker)
                 return _window_slice(cached, effective_lookback, slice_start, slice_end)
 
@@ -396,7 +396,7 @@ def fetch_ohlc(
                         combined = pd.concat([cached, new_df])
                         combined = combined[~combined.index.duplicated(keep="last")]
                         combined = combined.sort_index()
-                        save_cache(ticker, combined, interval)
+                        save_cache(ticker, combined, interval, auto_adjust=auto_adjust)
                         return _window_slice(combined, effective_lookback, slice_start, slice_end)
                 return _window_slice(cached, effective_lookback, slice_start, slice_end)
 
@@ -445,7 +445,7 @@ def fetch_ohlc(
 
     df = _normalize_single_ticker_df(df, ticker)
     if use_cache and not df.empty:
-        save_cache(ticker, df, interval)
+        save_cache(ticker, df, interval, auto_adjust=auto_adjust)
     return df
 
 
@@ -506,13 +506,13 @@ def fetch_ohlc_batch(
         cached_map: dict[str, pd.DataFrame] = {}  # stale cached tickers
         fresh_count = 0
         for t in tickers:
-            cached = load_cached(t, interval)
+            cached = load_cached(t, interval, auto_adjust=auto_adjust)
             if cached is not None and not cached.empty:
                 # FRESHNESS FIRST.  If written after last market close,
                 # no new bars can exist — use directly.  This prevents
                 # re-downloading for lookback="max" when the cache
                 # already holds all available data.
-                if _is_cache_fresh(t, interval):
+                if _is_cache_fresh(t, interval, auto_adjust=auto_adjust):
                     results[t] = cached
                     fresh_count += 1
                 elif not _cache_covers_lookback(cached, lookback):
@@ -596,7 +596,7 @@ def fetch_ohlc_batch(
                         combined = pd.concat([old, new_data])
                         combined = combined[~combined.index.duplicated(keep="last")]
                         combined = combined.sort_index()
-                        save_cache(t, combined, interval)
+                        save_cache(t, combined, interval, auto_adjust=auto_adjust)
                         results[t] = combined
                         continue
                 # Fallback: serve stale cache
@@ -645,7 +645,7 @@ def fetch_ohlc_batch(
         try:
             df = _normalize_single_ticker_df(batch_df.copy(), ticker)
             if use_cache:
-                save_cache(ticker, df, interval)
+                save_cache(ticker, df, interval, auto_adjust=auto_adjust)
             results[ticker] = df
         except ValueError:
             pass  # Skip failed ticker
@@ -674,7 +674,7 @@ def fetch_ohlc_batch(
 
                 ticker_df = ticker_df[needed].copy()
                 if use_cache:
-                    save_cache(ticker, ticker_df, interval)
+                    save_cache(ticker, ticker_df, interval, auto_adjust=auto_adjust)
                 results[ticker] = ticker_df
             except Exception:
                 # Skip any ticker that fails processing

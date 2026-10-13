@@ -29,10 +29,53 @@ _DEFAULT_CACHE_DIR = Path(
 # ---------------------------------------------------------------------------
 
 
-def _cache_path(ticker: str, interval: str, cache_dir: Path) -> Path:
-    """Return the parquet file path for a *ticker* + *interval*."""
+_ADJ_TAG = "adj"
+
+
+def _cache_path(
+    ticker: str,
+    interval: str,
+    cache_dir: Path,
+    auto_adjust: bool = False,
+) -> Path:
+    """Return the parquet file path for a *ticker* + *interval* + adjustment.
+
+    Adjusted and unadjusted history are different data for the same ticker,
+    because ``auto_adjust`` rewrites OHLC for splits and dividends. They must
+    not share a file: when they did, whichever was fetched first was returned
+    for both, with no error and no warning.
+
+    Args:
+        ticker: Stock symbol.
+        interval: Aggregation interval ('1d', '1wk', '1mo').
+        cache_dir: Cache directory.
+        auto_adjust: Whether the cached OHLC is split/dividend adjusted.
+    """
     safe = ticker.replace("/", "_").replace("\\", "_").upper()
-    return cache_dir / f"{safe}_{interval}.parquet"
+    tag = f"_{_ADJ_TAG}" if auto_adjust else ""
+    return cache_dir / f"{safe}_{interval}{tag}.parquet"
+
+
+def _parse_stem(stem: str) -> tuple[str, str, bool]:
+    """Split a cache filename stem into ``(ticker, interval, auto_adjust)``.
+
+    Tickers may themselves contain underscores, since '/' is replaced on the
+    way in (``BRK/B`` becomes ``BRK_B``), so the ticker is everything before
+    the interval rather than the first field.
+
+    Args:
+        stem: Filename stem, e.g. ``AAPL_1d`` or ``AAPL_1d_adj``.
+
+    Returns:
+        Tuple of (ticker, interval, auto_adjust).
+    """
+    parts = stem.split("_")
+    adjusted = len(parts) > 2 and parts[-1] == _ADJ_TAG
+    if adjusted:
+        parts = parts[:-1]
+    if len(parts) < 2:
+        return stem, "", adjusted
+    return "_".join(parts[:-1]), parts[-1], adjusted
 
 
 def _last_market_close() -> datetime:
@@ -70,6 +113,7 @@ def _is_cache_fresh(
     ticker: str,
     interval: str = "1d",
     cache_dir: Path = _DEFAULT_CACHE_DIR,
+    auto_adjust: bool = False,
 ) -> bool:
     """Check if a cache file is recent enough to skip a network update.
 
@@ -84,7 +128,7 @@ def _is_cache_fresh(
     """
     from zoneinfo import ZoneInfo
 
-    path = _cache_path(ticker, interval, cache_dir)
+    path = _cache_path(ticker, interval, cache_dir, auto_adjust)
     if not path.exists():
         return False
 
@@ -108,9 +152,18 @@ def load_cached(
     ticker: str,
     interval: str = "1d",
     cache_dir: Path = _DEFAULT_CACHE_DIR,
+    auto_adjust: bool = False,
 ) -> pd.DataFrame | None:
-    """Load cached OHLC data from disk, or ``None`` if not cached."""
-    path = _cache_path(ticker, interval, cache_dir)
+    """Load cached OHLC data from disk, or ``None`` if not cached.
+
+    Args:
+        ticker: Stock symbol.
+        interval: Aggregation interval ('1d', '1wk', '1mo').
+        cache_dir: Cache directory.
+        auto_adjust: Load the split/dividend-adjusted series rather than the
+            raw one. The two are cached separately and never interchanged.
+    """
+    path = _cache_path(ticker, interval, cache_dir, auto_adjust)
     if not path.exists():
         return None
     try:
@@ -128,12 +181,22 @@ def save_cache(
     df: pd.DataFrame,
     interval: str = "1d",
     cache_dir: Path = _DEFAULT_CACHE_DIR,
+    auto_adjust: bool = False,
 ) -> None:
-    """Persist OHLC data to disk as Parquet."""
+    """Persist OHLC data to disk as Parquet.
+
+    Args:
+        ticker: Stock symbol.
+        df: OHLC frame to persist.
+        interval: Aggregation interval ('1d', '1wk', '1mo').
+        cache_dir: Cache directory.
+        auto_adjust: Whether *df* holds split/dividend-adjusted OHLC. Passing
+            this wrongly would overwrite the other series.
+    """
     if df is None or df.empty:
         return
     cache_dir.mkdir(parents=True, exist_ok=True)
-    path = _cache_path(ticker, interval, cache_dir)
+    path = _cache_path(ticker, interval, cache_dir, auto_adjust)
     try:
         df.to_parquet(path)
     except Exception as e:
@@ -149,6 +212,7 @@ def clear_cache(
     ticker: str | None = None,
     interval: str | None = None,
     cache_dir: Path = _DEFAULT_CACHE_DIR,
+    auto_adjust: bool | None = None,
 ) -> int:
     """Delete cached files.
 
@@ -156,6 +220,9 @@ def clear_cache(
         ticker: Restrict to this ticker (``None`` = all).
         interval: Restrict to this interval (``None`` = all).
         cache_dir: Cache directory.
+        auto_adjust: Restrict to adjusted (``True``) or raw (``False``) files.
+            ``None``, the default, clears both so that a plain
+            ``clear_cache()`` still empties the cache completely.
 
     Returns:
         Number of files deleted.
@@ -165,12 +232,16 @@ def clear_cache(
 
     count = 0
     for f in cache_dir.glob("*.parquet"):
-        stem = f.stem  # e.g. "AAPL_1d"
+        # Parse rather than match on substrings: an "_adj" suffix made
+        # stem.endswith("_1d") false, so adjusted files survived a clear.
+        file_ticker, file_interval, file_adjusted = _parse_stem(f.stem)
         if ticker:
             safe = ticker.replace("/", "_").replace("\\", "_").upper()
-            if not stem.startswith(safe + "_"):
+            if file_ticker != safe:
                 continue
-        if interval and not stem.endswith("_" + interval):
+        if interval and file_interval != interval:
+            continue
+        if auto_adjust is not None and file_adjusted != auto_adjust:
             continue
         f.unlink()
         count += 1
@@ -188,7 +259,9 @@ def cache_stats(cache_dir: Path = _DEFAULT_CACHE_DIR) -> dict:
 
     files = list(cache_dir.glob("*.parquet"))
     total_size = sum(f.stat().st_size for f in files)
-    tickers = {f.stem.rsplit("_", 1)[0] for f in files}
+    # Count distinct tickers, not files: one ticker may hold both an adjusted
+    # and a raw series, which a plain rsplit would report as two tickers.
+    tickers = {_parse_stem(f.stem)[0] for f in files}
 
     return {
         "files": len(files),
