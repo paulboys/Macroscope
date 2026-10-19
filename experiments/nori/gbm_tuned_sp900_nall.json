@@ -1,0 +1,24 @@
+{
+  "cfg": {
+    "learning_rate": 0.013573639090316565,
+    "max_leaf_nodes": 7,
+    "max_depth": 5,
+    "min_samples_leaf": 506,
+    "l2_regularization": 0.1,
+    "max_features": 1.0,
+    "loss": "absolute_error"
+  },
+  "n_iter": 150,
+  "cv_ic": 0.04862327145405808,
+  "fold_ic": [
+    0.021108324618466897,
+    0.07404532704046068,
+    0.08420825982871426,
+    0.04309043876563128,
+    0.020664007017017233
+  ],
+  "default_cv_ic": 0.0197322315792911,
+  "mode": "raw",
+  "frame": "frame_sp900.parquet",
+  "n_train_rows": 52241
+}

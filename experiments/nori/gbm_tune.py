@@ -13,35 +13,52 @@ have a look-ahead edge over Nori and the comparison would mean nothing.
      subsamples features) and scored once on the test set built exactly as
      nori_fair.py builds it.
 
-usage: python gbm_tune.py frame_names.parquet [names_per_date=200] [n_configs=60]
-                          [--xs]
+usage: python gbm_tune.py FRAME [names_per_date=200] [n_configs=60] [--xs] [--tag T]
+                          [--meta PATH]
 
-  --xs  rank features within date and demean the target within date. Reported as
-        a separate line: Nori gets raw inputs, so this is not like for like.
+  names_per_date  names sampled per test date; 0 scores every name
+  --xs      rank features within date and demean the target within date. Reported
+            as a separate line: Nori gets raw inputs, so this is not like for like.
+  --tag T   prefix for the output files, so a new frame cannot overwrite old runs
+  --meta P  next-open meta file written by build_sp900.py (default: FRAME_meta.parquet
+            beside the frame, if present). When found, the test is also scored against
+            target_open, entering at the next day's open instead of today's close.
+            That is information only: no choice is made from it.
 """
 
+import argparse
 import json
-import sys
 import time
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
 from scipy.stats import rankdata
 from sklearn.ensemble import HistGradientBoostingRegressor
 
-flags = {a for a in sys.argv[1:] if a.startswith("--")}
-if flags - {"--xs"}:
-    sys.exit(f"unknown flag(s): {sorted(flags - {'--xs'})}")
-args = [a for a in sys.argv[1:] if not a.startswith("--")]
-XS = "--xs" in flags
-PATH = args[0]
-NAMES_PER_DATE = int(args[1]) if len(args) > 1 else 200
-N_CONFIGS = int(args[2]) if len(args) > 2 else 60
-TAG = f"n{NAMES_PER_DATE}" + ("_xs" if XS else "")
+parser = argparse.ArgumentParser()
+parser.add_argument("frame")
+parser.add_argument("names_per_date", nargs="?", type=int, default=200)
+parser.add_argument("n_configs", nargs="?", type=int, default=60)
+parser.add_argument("--xs", action="store_true")
+parser.add_argument("--demean", action="store_true")
+parser.add_argument("--tag", default="")
+parser.add_argument("--meta", default=None)
+_a = parser.parse_args()
+XS = _a.xs
+DEMEAN = _a.demean or XS  # --xs implies a demeaned target
+PATH = _a.frame
+NAMES_PER_DATE = _a.names_per_date
+N_CONFIGS = _a.n_configs
+TAG = (f"{_a.tag}_" if _a.tag else "") + (f"n{NAMES_PER_DATE}" if NAMES_PER_DATE else "nall")
+TAG += "_xs" if XS else ("_dm" if DEMEAN else "")
+MODE = "xs" if XS else ("demean" if DEMEAN else "raw")
+META_PATH = Path(_a.meta) if _a.meta else Path(PATH).with_name(Path(PATH).stem + "_meta.parquet")
 
 HORIZON, TEST_FROM, MIN_NAMES, SEED = 15, pd.Timestamp("2007-01-01"), 8, 0
 N_FOLDS, GAP_DATES, N_BAG = 5, 2, 5
-ITER_GRID = [25, 50, 100, 150, 200, 300, 450, 600]
+ITER_GRID = [25, 50, 100, 150, 200, 300, 450, 600, 900]
+MSL_FRAC = (0.0015, 0.06)  # min_samples_leaf as a share of training rows (50-2000 at 32k)
 
 frame = pd.read_parquet(PATH).sort_index()
 helper = ("target", "naive_momentum", "ticker", "bar")
@@ -58,22 +75,30 @@ test_all = test_all[test_all.index.isin(counts[counts >= MIN_NAMES].index)].copy
 test_all["_row"] = np.arange(len(test_all))  # to find the subsample after --xs
 
 rng = np.random.default_rng(SEED)
-test = test_all.groupby(level=0, group_keys=False).apply(
-    lambda g: g.iloc[np.sort(rng.choice(len(g), size=min(NAMES_PER_DATE, len(g)), replace=False))]
-)
+if NAMES_PER_DATE > 0:
+    test = test_all.groupby(level=0, group_keys=False).apply(
+        lambda g: g.iloc[
+            np.sort(rng.choice(len(g), size=min(NAMES_PER_DATE, len(g)), replace=False))
+        ]
+    )
+else:
+    test = test_all  # every name on every test date
+N_TRAIN = len(train)
 
 
 def transform(df: pd.DataFrame) -> pd.DataFrame:
-    """Under --xs, rank features and demean the target within each date.
+    """Under --xs rank features within each date; under --xs or --demean demean the target.
 
-    Uses only same-date rows, so it cannot leak across time. Without --xs the
-    frame is returned unchanged.
+    Demeaning removes the market-wide move, so the model is trained on relative
+    performance, which is what the rank metric scores. Uses only same-date rows,
+    so it cannot leak across time. With neither flag the frame is returned unchanged.
     """
-    if not XS:
+    if not DEMEAN:
         return df
     out = df.copy()
-    for c in feat_cols:
-        out[c] = out.groupby(level=0)[c].rank(pct=True) - 0.5
+    if XS:
+        for c in feat_cols:
+            out[c] = out.groupby(level=0)[c].rank(pct=True) - 0.5
     out["target"] = out["target"] - out.groupby(level=0)["target"].transform("mean")
     return out
 
@@ -87,7 +112,7 @@ test_t = test_t[test_t.index.get_level_values("_row").isin(test["_row"])]
 test_t = test_t.reset_index(level="_row", drop=True)
 print(
     f"train {len(train):,} rows / {train.index.nunique()} dates   "
-    f"test {len(test):,} rows / {test.index.nunique()} dates   mode {'xs' if XS else 'raw'}",
+    f"test {len(test):,} rows / {test.index.nunique()} dates   mode {MODE}",
     flush=True,
 )
 
@@ -102,15 +127,22 @@ def date_groups(idx: pd.Index) -> list[np.ndarray]:
 def per_date_ic(pred: np.ndarray, truth: np.ndarray, groups: list[np.ndarray]) -> np.ndarray:
     """Spearman correlation of pred with truth within each date group.
 
-    One entry per group, NaN where the prediction is constant (no ranking), so
-    two models' arrays stay aligned date for date when they are differenced.
+    One entry per group. A date where the prediction is constant ranks nothing,
+    so it counts as IC 0, not as missing. Dropping those dates lets a model that
+    only splits on market-wide features (identical for every stock on a date)
+    score on the few dates where it happens to vary, and tuning then selects it.
     """
-    out = np.full(len(groups), np.nan)
+    out = np.zeros(len(groups))
     for k, g in enumerate(groups):
         p = pred[g]
         if np.ptp(p) > 0:  # np.std of a constant float array can be ~1e-17, not 0
             out[k] = np.corrcoef(rankdata(p), rankdata(truth[g]))[0, 1]
     return out
+
+
+def flat_dates(pred: np.ndarray, groups: list[np.ndarray]) -> int:
+    """How many date groups the prediction does not rank at all (constant within the date)."""
+    return int(sum(np.ptp(pred[g]) == 0 for g in groups))
 
 
 def tstat(a: np.ndarray) -> float:
@@ -156,7 +188,9 @@ def sample_config(r: np.random.Generator) -> dict:
         "learning_rate": float(np.exp(r.uniform(np.log(0.01), np.log(0.1)))),
         "max_leaf_nodes": int(r.choice(leaves)),
         "max_depth": depth,
-        "min_samples_leaf": int(np.exp(r.uniform(np.log(50), np.log(2000)))),
+        "min_samples_leaf": int(
+            np.exp(r.uniform(np.log(MSL_FRAC[0] * N_TRAIN), np.log(MSL_FRAC[1] * N_TRAIN)))
+        ),
         "l2_regularization": float(r.choice([0.0, 0.1, 1.0, 10.0])),
         "max_features": float(r.choice([0.5, 0.7, 1.0])),
         "loss": str(r.choice(["squared_error", "absolute_error"])),
@@ -246,7 +280,9 @@ with open(f"gbm_tuned_{TAG}.json", "w") as fh:
             "cv_ic": best["cv_ic"],
             "fold_ic": best["fold_ic"],
             "default_cv_ic": float(d_mean[dj]),
-            "mode": "xs" if XS else "raw",
+            "mode": MODE,
+            "frame": str(PATH),
+            "n_train_rows": N_TRAIN,
         },
         fh,
         indent=2,
@@ -278,18 +314,43 @@ else:
     print("\nbag skipped: the tuned config uses every feature, so it is deterministic")
 
 print("\n" + "=" * 70)
-print(f"TEST ({len(test):,} rows, {NAMES_PER_DATE} names/date, {'xs' if XS else 'raw'} inputs)")
+names_label = f"{NAMES_PER_DATE}" if NAMES_PER_DATE else "all"
+print(f"TEST ({len(test):,} rows, {names_label} names/date, {MODE} inputs)")
 print(f"gbm-default early-stopped at {m_default.n_iter_} of 300 iterations")
 out = test[["ticker", "target"]].copy()
 base = per_date_ic(models["gbm-default"], yte, te_groups)
 for name, p in models.items():
     a = per_date_ic(p, yte, te_groups)
-    line = f"  {name:>16}  IC {np.nanmean(a):+.4f}  t {tstat(a):+.2f}"
+    line = (
+        f"  {name:>16}  IC {np.nanmean(a):+.4f}  t {tstat(a):+.2f}  "
+        f"flat dates {flat_dates(p, te_groups)}/{len(te_groups)}"
+    )
     if name != "gbm-default":
         dd = a - base
         line += f"   vs default: dIC {np.nanmean(dd):+.4f} t {tstat(dd):+.2f}"
     print(line)
     out[name] = p
 print("=" * 70)
+
+# --- information only: the same predictions, entered at the next day's open ----
+if META_PATH.exists():
+    meta = pd.read_parquet(META_PATH).set_index("ticker", append=True)["target_open"]
+    meta = meta[~meta.index.duplicated()]
+    key = pd.MultiIndex.from_arrays([test.index, test["ticker"]])
+    t_open = meta.reindex(key).to_numpy(float)
+    ok = np.isfinite(t_open)
+    og = date_groups(test.index[ok])
+    out["target_open"] = t_open
+    print(f"\nENTRY AT NEXT OPEN ({ok.sum():,} rows with target_open); no choice depends on this")
+    print(f"  {'':>16}  {'IC vs close-entry':>20}  {'IC vs open-entry':>20}  {'change':>8}")
+    for name, p in models.items():
+        a = per_date_ic(p[ok], test["target"].to_numpy(float)[ok], og)
+        b = per_date_ic(p[ok], t_open[ok], og)
+        print(
+            f"  {name:>16}  {np.nanmean(a):+.4f} (t {tstat(a):+5.2f})  "
+            f"{np.nanmean(b):+.4f} (t {tstat(b):+5.2f})  {np.nanmean(b) - np.nanmean(a):+.4f}"
+        )
+else:
+    print(f"\n(no meta file at {META_PATH}; next-open scoring skipped)")
 out.to_parquet(f"gbm_tuned_preds_{TAG}.parquet")
 print(f"saved gbm_tuned_{TAG}.json and gbm_tuned_preds_{TAG}.parquet")
