@@ -1,0 +1,91 @@
+train 32,303 rows
+test  66,200 rows over 331 dates, 200 names/date (subsampled from 92,599)
+expected Nori time at ~0.5 s/row: 9.2 h (cache nori_chunks_seed1_n200)
+  naive-reversal  IC +0.0267  t +3.95
+           ridge  IC +0.0045  t +0.66
+             gbm  IC +0.0290  t +4.76
+Mixed precision is not supported for CPU inference, so it has been automatically disabled
+    chunk 1/67 (456s elapsed)
+    chunk 2/67 (928s elapsed)
+    chunk 3/67 (1418s elapsed)
+    chunk 4/67 (1911s elapsed)
+    chunk 5/67 (2409s elapsed)
+    chunk 6/67 (2906s elapsed)
+    chunk 7/67 (3401s elapsed)
+    chunk 8/67 (3903s elapsed)
+    chunk 9/67 (4407s elapsed)
+    chunk 10/67 (4892s elapsed)
+    chunk 11/67 (5375s elapsed)
+    chunk 12/67 (5855s elapsed)
+    chunk 13/67 (6343s elapsed)
+    chunk 14/67 (6840s elapsed)
+    chunk 15/67 (7323s elapsed)
+    chunk 16/67 (7804s elapsed)
+    chunk 17/67 (8287s elapsed)
+    chunk 18/67 (8767s elapsed)
+    chunk 19/67 (9248s elapsed)
+    chunk 20/67 (9727s elapsed)
+    chunk 21/67 (10207s elapsed)
+    chunk 22/67 (10685s elapsed)
+    chunk 23/67 (11164s elapsed)
+    chunk 24/67 (11657s elapsed)
+    chunk 25/67 (12139s elapsed)
+    chunk 26/67 (12617s elapsed)
+    chunk 27/67 (13101s elapsed)
+    chunk 28/67 (13580s elapsed)
+    chunk 29/67 (14061s elapsed)
+    chunk 30/67 (14558s elapsed)
+    chunk 31/67 (15051s elapsed)
+    chunk 32/67 (15555s elapsed)
+    chunk 33/67 (16052s elapsed)
+    chunk 34/67 (16553s elapsed)
+    chunk 35/67 (17050s elapsed)
+    chunk 36/67 (17549s elapsed)
+    chunk 37/67 (18046s elapsed)
+    chunk 38/67 (18541s elapsed)
+    chunk 39/67 (19035s elapsed)
+    chunk 40/67 (19532s elapsed)
+    chunk 41/67 (20027s elapsed)
+    chunk 42/67 (20518s elapsed)
+    chunk 43/67 (21005s elapsed)
+    chunk 44/67 (21492s elapsed)
+    chunk 45/67 (21984s elapsed)
+    chunk 46/67 (22568s elapsed)
+    chunk 47/67 (23087s elapsed)
+    chunk 48/67 (23601s elapsed)
+    chunk 49/67 (24094s elapsed)
+    chunk 50/67 (24588s elapsed)
+    chunk 51/67 (25080s elapsed)
+    chunk 52/67 (25595s elapsed)
+    chunk 53/67 (26088s elapsed)
+    chunk 54/67 (26584s elapsed)
+    chunk 55/67 (27072s elapsed)
+    chunk 56/67 (27563s elapsed)
+    chunk 57/67 (28055s elapsed)
+    chunk 58/67 (28545s elapsed)
+    chunk 59/67 (29034s elapsed)
+    chunk 60/67 (29525s elapsed)
+    chunk 61/67 (30021s elapsed)
+    chunk 62/67 (30513s elapsed)
+    chunk 63/67 (31006s elapsed)
+    chunk 64/67 (31497s elapsed)
+    chunk 65/67 (31990s elapsed)
+    chunk 66/67 (32483s elapsed)
+    chunk 67/67 (32878s elapsed)
+
+======================================================================================
+                   IC   IC_t  n_dates  dates>0  train_rows       secs
+model                                                                
+naive-reversal 0.0267 3.9465      331   0.5891       32303     0.0000
+ridge          0.0045 0.6585      331   0.5287       32303     0.0000
+gbm            0.0290 4.7609      331   0.5952       32303     0.0000
+nori-6m        0.0575 7.6208      331   0.7009        2500 32878.3000
+======================================================================================
+train_rows shows the handicap: Nori sees CONTEXT_CAP rows, the others all of them.
+
+Paired vs gbm, per-date IC difference
+  naive-reversal  dIC -0.0022  t -0.26
+           ridge  dIC -0.0245  t -3.44
+         nori-6m  dIC +0.0285  t +3.39
+
+saved predictions to preds_seed1_n200.parquet

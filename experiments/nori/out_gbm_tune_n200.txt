@@ -1,0 +1,109 @@
+train 32,303 rows / 231 dates   test 66,200 rows / 331 dates   mode raw
+  fold 1: fit 75 dates, val 30 dates (1997-10-07 .. 1999-06-30)
+  fold 2: fit 105 dates, val 31 dates (1999-07-22 .. 2001-05-03)
+  fold 3: fit 136 dates, val 31 dates (2001-05-24 .. 2003-03-14)
+  fold 4: fit 167 dates, val 31 dates (2003-04-04 .. 2005-01-18)
+  fold 5: fit 198 dates, val 31 dates (2005-02-08 .. 2006-11-20)
+  cfg  1/60  cv IC +0.0433 @ 300 it   lr 0.089 leaves 15 depth 4 msl   85 l2 10.0 mf 1.0 squared_error  (9s)
+  cfg  2/60  cv IC +0.0838 @ 600 it   lr 0.027 leaves  7 depth 4 msl  226 l2 10.0 mf 0.7 absolute_error  (20s)
+  cfg  3/60  cv IC +0.0500 @ 450 it   lr 0.057 leaves  7 depth 3 msl  364 l2 0.0  mf 1.0 squared_error  (27s)
+  cfg  4/60  cv IC +0.0483 @ 300 it   lr 0.020 leaves 15 depth 4 msl  266 l2 10.0 mf 0.5 squared_error  (35s)
+  cfg  5/60  cv IC +0.0364 @ 600 it   lr 0.016 leaves 15 depth 4 msl  796 l2 0.1  mf 0.5 squared_error  (43s)
+  cfg  6/60  cv IC +0.0445 @ 200 it   lr 0.096 leaves  7 depth 4 msl 1736 l2 0.0  mf 1.0 squared_error  (50s)
+  cfg  7/60  cv IC +0.0853 @ 450 it   lr 0.019 leaves 31 depth 5 msl 1789 l2 0.0  mf 0.7 absolute_error  (61s)
+  cfg  8/60  cv IC +0.0801 @ 150 it   lr 0.042 leaves  7 depth 4 msl  877 l2 0.1  mf 0.7 absolute_error  (72s)
+  cfg  9/60  cv IC +0.0481 @ 450 it   lr 0.011 leaves 31 depth 6 msl  272 l2 1.0  mf 0.7 squared_error  (84s)
+  cfg 10/60  cv IC +0.0510 @ 100 it   lr 0.071 leaves 15 depth 4 msl  445 l2 10.0 mf 0.5 squared_error  (92s)
+  cfg 11/60  cv IC +0.0311 @ 600 it   lr 0.032 leaves 31 depth 6 msl  804 l2 1.0  mf 0.5 squared_error  (102s)
+  cfg 12/60  cv IC +0.0832 @ 100 it   lr 0.048 leaves 31 depth 5 msl  911 l2 10.0 mf 0.5 absolute_error  (114s)
+C:\Users\User\miniforge3\envs\nori\Lib\site-packages\numpy\lib\_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+C:\Users\User\miniforge3\envs\nori\Lib\site-packages\numpy\lib\_function_base_impl.py:3038: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+  cfg 13/60  cv IC +0.0784 @ 300 it   lr 0.016 leaves 15 depth 6 msl 1172 l2 0.0  mf 1.0 absolute_error  (127s)
+  cfg 14/60  cv IC +0.0780 @ 200 it   lr 0.030 leaves 63 depth 6 msl  137 l2 10.0 mf 0.5 absolute_error  (148s)
+  cfg 15/60  cv IC +0.0547 @ 300 it   lr 0.052 leaves 15 depth 5 msl  141 l2 10.0 mf 0.7 squared_error  (158s)
+  cfg 16/60  cv IC +0.0462 @ 300 it   lr 0.064 leaves 15 depth 5 msl 1749 l2 10.0 mf 0.5 squared_error  (166s)
+  cfg 17/60  cv IC +0.0485 @ 200 it   lr 0.078 leaves 15 depth 4 msl  439 l2 0.1  mf 1.0 squared_error  (174s)
+  cfg 18/60  cv IC +0.0358 @ 300 it   lr 0.083 leaves 15 depth 4 msl 1055 l2 0.1  mf 1.0 squared_error  (182s)
+  cfg 19/60  cv IC +0.0771 @ 150 it   lr 0.018 leaves 31 depth 5 msl  109 l2 10.0 mf 1.0 absolute_error  (199s)
+  cfg 20/60  cv IC +0.0781 @ 150 it   lr 0.067 leaves  7 depth 4 msl   91 l2 0.0  mf 0.7 absolute_error  (214s)
+  cfg 21/60  cv IC +0.0506 @ 150 it   lr 0.049 leaves 15 depth 4 msl  215 l2 0.0  mf 0.7 squared_error  (227s)
+  cfg 22/60  cv IC +0.0780 @ 600 it   lr 0.026 leaves  7 depth 5 msl   73 l2 0.1  mf 0.7 absolute_error  (239s)
+  cfg 23/60  cv IC +0.0803 @ 300 it   lr 0.053 leaves 15 depth 4 msl  245 l2 1.0  mf 1.0 absolute_error  (252s)
+  cfg 24/60  cv IC +0.0824 @ 100 it   lr 0.065 leaves 15 depth 4 msl  176 l2 10.0 mf 0.7 absolute_error  (265s)
+  cfg 25/60  cv IC +0.0477 @ 200 it   lr 0.099 leaves  7 depth 3 msl  122 l2 0.0  mf 0.5 squared_error  (272s)
+  cfg 26/60  cv IC +0.0803 @ 450 it   lr 0.018 leaves  7 depth 3 msl  834 l2 0.0  mf 1.0 absolute_error  (283s)
+  cfg 27/60  cv IC +0.0829 @ 600 it   lr 0.024 leaves  7 depth 3 msl  236 l2 0.1  mf 0.7 absolute_error  (293s)
+  cfg 28/60  cv IC +0.0435 @ 300 it   lr 0.039 leaves  7 depth 4 msl  729 l2 10.0 mf 0.7 squared_error  (302s)
+  cfg 29/60  cv IC +0.0503 @ 600 it   lr 0.023 leaves  7 depth 4 msl   74 l2 0.0  mf 0.5 squared_error  (310s)
+  cfg 30/60  cv IC +0.0914 @ 200 it   lr 0.021 leaves 15 depth 4 msl  419 l2 0.1  mf 0.5 absolute_error  (321s)
+  cfg 31/60  cv IC +0.0295 @ 450 it   lr 0.062 leaves 63 depth 6 msl  822 l2 1.0  mf 0.7 squared_error  (331s)
+  cfg 32/60  cv IC +0.0452 @ 200 it   lr 0.049 leaves 15 depth 6 msl   66 l2 1.0  mf 0.5 squared_error  (342s)
+C:\Users\User\miniforge3\envs\nori\Lib\site-packages\numpy\lib\_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+C:\Users\User\miniforge3\envs\nori\Lib\site-packages\numpy\lib\_function_base_impl.py:3038: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+C:\Users\User\miniforge3\envs\nori\Lib\site-packages\numpy\lib\_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+C:\Users\User\miniforge3\envs\nori\Lib\site-packages\numpy\lib\_function_base_impl.py:3038: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+  cfg 33/60  cv IC +0.0860 @ 450 it   lr 0.014 leaves  7 depth 5 msl  323 l2 0.1  mf 1.0 absolute_error  (353s)
+  cfg 34/60  cv IC +0.0799 @ 100 it   lr 0.059 leaves 15 depth 4 msl   86 l2 1.0  mf 0.5 absolute_error  (367s)
+  cfg 35/60  cv IC +0.0860 @ 100 it   lr 0.020 leaves  7 depth 4 msl 1137 l2 10.0 mf 0.5 absolute_error  (378s)
+  cfg 36/60  cv IC +0.0756 @ 200 it   lr 0.015 leaves 31 depth 5 msl  117 l2 0.1  mf 0.5 absolute_error  (395s)
+  cfg 37/60  cv IC +0.0901 @  50 it   lr 0.094 leaves 15 depth 5 msl  501 l2 10.0 mf 1.0 absolute_error  (408s)
+C:\Users\User\miniforge3\envs\nori\Lib\site-packages\numpy\lib\_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+C:\Users\User\miniforge3\envs\nori\Lib\site-packages\numpy\lib\_function_base_impl.py:3038: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+C:\Users\User\miniforge3\envs\nori\Lib\site-packages\numpy\lib\_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+C:\Users\User\miniforge3\envs\nori\Lib\site-packages\numpy\lib\_function_base_impl.py:3038: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+  cfg 38/60  cv IC +0.0445 @ 600 it   lr 0.020 leaves  7 depth 5 msl 1608 l2 0.1  mf 1.0 squared_error  (416s)
+  cfg 39/60  cv IC +0.0829 @ 100 it   lr 0.057 leaves  7 depth 3 msl  188 l2 10.0 mf 1.0 absolute_error  (426s)
+  cfg 40/60  cv IC +0.0435 @ 200 it   lr 0.024 leaves 15 depth 5 msl  320 l2 0.0  mf 0.5 squared_error  (436s)
+  cfg 41/60  cv IC +0.0335 @ 100 it   lr 0.094 leaves 15 depth 4 msl  790 l2 0.1  mf 1.0 squared_error  (444s)
+  cfg 42/60  cv IC +0.0554 @ 150 it   lr 0.080 leaves  7 depth 5 msl   53 l2 10.0 mf 0.5 squared_error  (452s)
+  cfg 43/60  cv IC +0.0891 @ 450 it   lr 0.018 leaves  7 depth 6 msl  466 l2 10.0 mf 0.5 absolute_error  (464s)
+  cfg 44/60  cv IC +0.0334 @ 300 it   lr 0.023 leaves 15 depth 5 msl  827 l2 0.1  mf 0.5 squared_error  (472s)
+C:\Users\User\miniforge3\envs\nori\Lib\site-packages\numpy\lib\_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+C:\Users\User\miniforge3\envs\nori\Lib\site-packages\numpy\lib\_function_base_impl.py:3038: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+  cfg 45/60  cv IC +0.0558 @ 450 it   lr 0.024 leaves 15 depth 4 msl   80 l2 0.1  mf 0.7 squared_error  (481s)
+  cfg 46/60  cv IC +0.0802 @ 100 it   lr 0.024 leaves  7 depth 3 msl  927 l2 1.0  mf 0.7 absolute_error  (491s)
+  cfg 47/60  cv IC +0.0475 @ 300 it   lr 0.054 leaves 15 depth 4 msl  460 l2 0.1  mf 0.5 squared_error  (499s)
+  cfg 48/60  cv IC +0.0863 @ 450 it   lr 0.018 leaves 31 depth 6 msl 1743 l2 0.0  mf 0.7 absolute_error  (511s)
+  cfg 49/60  cv IC +0.0847 @ 150 it   lr 0.034 leaves 31 depth 5 msl  477 l2 1.0  mf 0.5 absolute_error  (524s)
+  cfg 50/60  cv IC +0.0504 @ 200 it   lr 0.047 leaves  7 depth 3 msl  410 l2 1.0  mf 0.5 squared_error  (531s)
+  cfg 51/60  cv IC +0.0733 @ 100 it   lr 0.014 leaves 31 depth 6 msl   85 l2 1.0  mf 1.0 absolute_error  (553s)
+  cfg 52/60  cv IC +0.0824 @ 450 it   lr 0.014 leaves 15 depth 6 msl   59 l2 0.1  mf 0.5 absolute_error  (571s)
+  cfg 53/60  cv IC +0.0536 @ 600 it   lr 0.034 leaves  7 depth 3 msl  263 l2 10.0 mf 1.0 squared_error  (577s)
+  cfg 54/60  cv IC +0.0865 @  25 it   lr 0.063 leaves 15 depth 6 msl 1129 l2 1.0  mf 0.7 absolute_error  (591s)
+  cfg 55/60  cv IC +0.0846 @ 600 it   lr 0.013 leaves  7 depth 6 msl  188 l2 0.0  mf 0.5 absolute_error  (603s)
+  cfg 56/60  cv IC +0.0487 @ 600 it   lr 0.018 leaves 15 depth 5 msl  144 l2 0.1  mf 0.7 squared_error  (613s)
+  cfg 57/60  cv IC +0.0429 @ 450 it   lr 0.045 leaves 31 depth 6 msl  468 l2 0.1  mf 0.5 squared_error  (623s)
+  cfg 58/60  cv IC +0.0459 @ 200 it   lr 0.048 leaves  7 depth 4 msl  207 l2 0.0  mf 0.5 squared_error  (630s)
+  cfg 59/60  cv IC +0.0848 @ 600 it   lr 0.016 leaves  7 depth 4 msl  230 l2 0.0  mf 0.7 absolute_error  (642s)
+  cfg 60/60  cv IC +0.0387 @ 600 it   lr 0.021 leaves 31 depth 6 msl 1053 l2 0.0  mf 1.0 squared_error  (651s)
+
+nori_fair's settings, same CV: best +0.0354 @ 100 it; at 300 it +0.0293
+
+Top 5 by CV IC (folds shown, to see how stable they are).
+The top score is the max of N_CONFIGS noisy estimates, so it is optimistic.
+  +0.0914  folds [0.115, 0.085, 0.145, 0.06, 0.052]  200 it  {'learning_rate': 0.02061265315817064, 'max_leaf_nodes': 15, 'max_depth': 4, 'min_samples_leaf': 419, 'l2_regularization': 0.1, 'max_features': 0.5, 'loss': 'absolute_error'}
+  +0.0901  folds [0.104, 0.076, 0.141, 0.081, 0.05]  50 it  {'learning_rate': 0.09433933550242984, 'max_leaf_nodes': 15, 'max_depth': 5, 'min_samples_leaf': 501, 'l2_regularization': 10.0, 'max_features': 1.0, 'loss': 'absolute_error'}
+  +0.0891  folds [0.095, 0.09, 0.138, 0.073, 0.049]  450 it  {'learning_rate': 0.01828718238053931, 'max_leaf_nodes': 7, 'max_depth': 6, 'min_samples_leaf': 466, 'l2_regularization': 10.0, 'max_features': 0.5, 'loss': 'absolute_error'}
+  +0.0865  folds [0.085, 0.084, 0.148, 0.061, 0.055]  25 it  {'learning_rate': 0.06259593205459002, 'max_leaf_nodes': 15, 'max_depth': 6, 'min_samples_leaf': 1129, 'l2_regularization': 1.0, 'max_features': 0.7, 'loss': 'absolute_error'}
+  +0.0863  folds [0.104, 0.076, 0.139, 0.066, 0.046]  450 it  {'learning_rate': 0.017834772677120865, 'max_leaf_nodes': 31, 'max_depth': 6, 'min_samples_leaf': 1743, 'l2_regularization': 0.0, 'max_features': 0.7, 'loss': 'absolute_error'}
+
+======================================================================
+TEST (66,200 rows, 200 names/date, raw inputs)
+gbm-default early-stopped at 132 of 300 iterations
+       gbm-default  IC +0.0290  t +4.76
+         gbm-tuned  IC +0.0750  t +10.67   vs default: dIC +0.0460 t +6.66
+    gbm-tuned-bag5  IC +0.0751  t +10.47   vs default: dIC +0.0461 t +6.64
+======================================================================
+saved gbm_tuned_n200.json and gbm_tuned_preds_n200.parquet
