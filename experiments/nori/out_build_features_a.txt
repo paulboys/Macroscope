@@ -1,0 +1,118 @@
+879 tickers, 11 sectors, no sector for 0: []
+sector
+Industrials               162
+Financials                140
+Information Technology    122
+Consumer Discretionary    102
+Health Care                92
+Real Estate                58
+Materials                  48
+Utilities                  45
+Consumer Staples           45
+Energy                     38
+Communication Services     27
+panel (8487, 879), rss 249 MB
+  Communication Services     27 names  rss 298 MB
+  Consumer Discretionary    102 names  rss 408 MB
+  Consumer Staples           45 names  rss 367 MB
+  Energy                     38 names  rss 358 MB
+  Financials                140 names  rss 509 MB
+  Health Care                92 names  rss 442 MB
+  Industrials               162 names  rss 548 MB
+  Information Technology    122 names  rss 493 MB
+  Materials                  48 names  rss 394 MB
+  Real Estate                58 names  rss 409 MB
+  Utilities                  45 names  rss 391 MB
+  Communication Services     27 names  rss 344 MB
+  Consumer Discretionary    102 names  rss 394 MB
+  Consumer Staples           45 names  rss 357 MB
+  Energy                     38 names  rss 353 MB
+  Financials                140 names  rss 421 MB
+  Health Care                92 names  rss 391 MB
+  Industrials               162 names  rss 437 MB
+  Information Technology    122 names  rss 409 MB
+  Materials                  48 names  rss 359 MB
+  Real Estate                58 names  rss 368 MB
+  Utilities                  45 names  rss 359 MB
+leak check at 2009-06-15: 879 rows, mismatched columns none
+  Communication Services     27 names  rss 365 MB
+  Consumer Discretionary    102 names  rss 476 MB
+  Consumer Staples           45 names  rss 388 MB
+  Energy                     38 names  rss 378 MB
+  Financials                140 names  rss 524 MB
+  Health Care                92 names  rss 462 MB
+  Industrials               162 names  rss 556 MB
+  Information Technology    122 names  rss 499 MB
+  Materials                  48 names  rss 396 MB
+  Real Estate                58 names  rss 412 MB
+  Utilities                  45 names  rss 394 MB
+  Communication Services     27 names  rss 357 MB
+  Consumer Discretionary    102 names  rss 425 MB
+  Consumer Staples           45 names  rss 369 MB
+  Energy                     38 names  rss 365 MB
+  Financials                140 names  rss 463 MB
+  Health Care                92 names  rss 420 MB
+  Industrials               162 names  rss 484 MB
+  Information Technology    122 names  rss 446 MB
+  Materials                  48 names  rss 376 MB
+  Real Estate                58 names  rss 386 MB
+  Utilities                  45 names  rss 375 MB
+leak check at 2016-03-01: 879 rows, mismatched columns none
+  Communication Services     27 names  rss 367 MB
+  Consumer Discretionary    102 names  rss 478 MB
+  Consumer Staples           45 names  rss 389 MB
+  Energy                     38 names  rss 379 MB
+  Financials                140 names  rss 526 MB
+  Health Care                92 names  rss 463 MB
+  Industrials               162 names  rss 557 MB
+  Information Technology    122 names  rss 501 MB
+  Materials                  48 names  rss 397 MB
+  Real Estate                58 names  rss 412 MB
+  Utilities                  45 names  rss 394 MB
+  Communication Services     27 names  rss 368 MB
+  Consumer Discretionary    102 names  rss 469 MB
+  Consumer Staples           45 names  rss 386 MB
+  Energy                     38 names  rss 381 MB
+  Financials                140 names  rss 515 MB
+  Health Care                92 names  rss 455 MB
+  Industrials               162 names  rss 545 MB
+  Information Technology    122 names  rss 491 MB
+  Materials                  48 names  rss 390 MB
+  Real Estate                58 names  rss 408 MB
+  Utilities                  45 names  rss 389 MB
+leak check at 2024-11-01: 879 rows, mismatched columns none
+  Communication Services     27 names  rss 376 MB
+  Consumer Discretionary    102 names  rss 484 MB
+  Consumer Staples           45 names  rss 405 MB
+  Energy                     38 names  rss 396 MB
+  Financials                140 names  rss 549 MB
+  Health Care                92 names  rss 486 MB
+  Industrials               162 names  rss 594 MB
+  Information Technology    122 names  rss 544 MB
+  Materials                  48 names  rss 440 MB
+  Real Estate                58 names  rss 456 MB
+  Utilities                  45 names  rss 440 MB
+
+coverage of new features (share of rows not missing):
+res_mom_12_1      0.996
+res_rev_z         0.998
+res_vol_60        0.998
+res_ivol_share    0.998
+res_ret_20d       0.998
+res_ret_5d        0.999
+res_ret_10d       0.999
+res_beta_mkt      0.999
+res_beta_sec      0.999
+sec_mom_6m        0.999
+id_ret_60d        1.000
+on_ret_60d        1.000
+sec_rel_60d       1.000
+oth_log_dv60      1.000
+id_ret_20d        1.000
+on_ret_20d        1.000
+oth_amihud_20     1.000
+oth_max_21        1.000
+sec_rel_5d        1.000
+sec_rel_20d       1.000
+sec_mom_1m        1.000
+wrote frame_sp900_a.parquet: (284816, 57)
