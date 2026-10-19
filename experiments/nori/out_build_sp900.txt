@@ -1,0 +1,56 @@
+benchmark SPY 8487 bars from 1993-01-29; grid offset 0: 566 dates
+universe 903 tickers (503 S&P 500, 400 MidCap 400)
+  chunk   0 done, tickers   20/903  kept 20  rss 136 MB
+  chunk   1 done, tickers   40/903  kept 40  rss 143 MB
+  chunk   2 done, tickers   60/903  kept 60  rss 145 MB
+  chunk   3 done, tickers   80/903  kept 80  rss 145 MB
+  chunk   4 done, tickers  100/903  kept 100  rss 148 MB
+  chunk   5 done, tickers  120/903  kept 120  rss 148 MB
+  chunk   6 done, tickers  140/903  kept 140  rss 148 MB
+  chunk   7 done, tickers  160/903  kept 160  rss 148 MB
+  chunk   8 done, tickers  180/903  kept 180  rss 148 MB
+  chunk   9 done, tickers  200/903  kept 199  rss 149 MB
+  chunk  10 done, tickers  220/903  kept 217  rss 187 MB
+  chunk  11 done, tickers  240/903  kept 236  rss 212 MB
+  chunk  12 done, tickers  260/903  kept 256  rss 226 MB
+  chunk  13 done, tickers  280/903  kept 275  rss 239 MB
+  chunk  14 done, tickers  300/903  kept 295  rss 263 MB
+  chunk  15 done, tickers  320/903  kept 315  rss 267 MB
+  chunk  16 done, tickers  340/903  kept 335  rss 270 MB
+  chunk  17 done, tickers  360/903  kept 355  rss 267 MB
+  chunk  18 done, tickers  380/903  kept 375  rss 277 MB
+  chunk  19 done, tickers  400/903  kept 393  rss 270 MB
+  chunk  20 done, tickers  420/903  kept 411  rss 267 MB
+  chunk  21 done, tickers  440/903  kept 431  rss 269 MB
+  chunk  22 done, tickers  460/903  kept 451  rss 288 MB
+  chunk  23 done, tickers  480/903  kept 469  rss 287 MB
+  chunk  24 done, tickers  500/903  kept 489  rss 278 MB
+  chunk  25 done, tickers  520/903  kept 508  rss 289 MB
+  chunk  26 done, tickers  540/903  kept 528  rss 286 MB
+  chunk  27 done, tickers  560/903  kept 547  rss 287 MB
+  chunk  28 done, tickers  580/903  kept 565  rss 288 MB
+  chunk  29 done, tickers  600/903  kept 583  rss 290 MB
+  chunk  30 done, tickers  620/903  kept 603  rss 290 MB
+  chunk  31 done, tickers  640/903  kept 623  rss 289 MB
+  chunk  32 done, tickers  660/903  kept 643  rss 294 MB
+  chunk  33 done, tickers  680/903  kept 663  rss 295 MB
+  chunk  34 done, tickers  700/903  kept 683  rss 293 MB
+  chunk  35 done, tickers  720/903  kept 702  rss 289 MB
+  chunk  36 done, tickers  740/903  kept 722  rss 294 MB
+  chunk  37 done, tickers  760/903  kept 741  rss 292 MB
+  chunk  38 done, tickers  780/903  kept 761  rss 294 MB
+  chunk  39 done, tickers  800/903  kept 781  rss 294 MB
+  chunk  40 done, tickers  820/903  kept 800  rss 295 MB
+  chunk  41 done, tickers  840/903  kept 818  rss 292 MB
+  chunk  42 done, tickers  860/903  kept 837  rss 295 MB
+  chunk  43 done, tickers  880/903  kept 856  rss 296 MB
+  chunk  44 done, tickers  900/903  kept 876  rss 293 MB
+  chunk  45 done, tickers  903/903  kept 879  rss 296 MB
+
+ticker outcomes: {'ok': 879, 'too few rows': 24}
+grid rows before filters 377,847; rows failing each floor (overlapping): history 17,606, dollar volume 71,259, price 39,813
+names 879, rows 284,816, dates 563, 1993-03-15 to 2026-09-10
+names per date: min 42, median 535, max 879
+overnight gap open[t+1]/close[t]-1: mean +0.00048, std 0.0135
+target_open - target: mean -0.00046, std 0.0136; corr(target, target_open) 0.9872
+wrote frame_sp900.parquet and frame_sp900_meta.parquet
