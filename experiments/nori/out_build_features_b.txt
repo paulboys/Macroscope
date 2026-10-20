@@ -1,0 +1,101 @@
+panel (8487, 879), rss 504 MB
+  Communication Services   rss 405 MB
+  Consumer Discretionary   rss 439 MB
+  Consumer Staples         rss 414 MB
+  Energy                   rss 412 MB
+  Financials               rss 461 MB
+  Health Care              rss 437 MB
+  Industrials              rss 472 MB
+  Information Technology   rss 450 MB
+  Materials                rss 418 MB
+  Real Estate              rss 421 MB
+  Utilities                rss 413 MB
+  Communication Services   rss 400 MB
+  Consumer Discretionary   rss 415 MB
+  Consumer Staples         rss 403 MB
+  Energy                   rss 402 MB
+  Financials               rss 427 MB
+  Health Care              rss 417 MB
+  Industrials              rss 430 MB
+  Information Technology   rss 422 MB
+  Materials                rss 406 MB
+  Real Estate              rss 409 MB
+  Utilities                rss 408 MB
+leak check at 2009-06-16: 500 rows, mismatched columns none
+  Communication Services   rss 411 MB
+  Consumer Discretionary   rss 445 MB
+  Consumer Staples         rss 420 MB
+  Energy                   rss 418 MB
+  Financials               rss 467 MB
+  Health Care              rss 440 MB
+  Industrials              rss 474 MB
+  Information Technology   rss 452 MB
+  Materials                rss 416 MB
+  Real Estate              rss 421 MB
+  Utilities                rss 417 MB
+  Communication Services   rss 405 MB
+  Consumer Discretionary   rss 430 MB
+  Consumer Staples         rss 412 MB
+  Energy                   rss 411 MB
+  Financials               rss 440 MB
+  Health Care              rss 426 MB
+  Industrials              rss 448 MB
+  Information Technology   rss 437 MB
+  Materials                rss 414 MB
+  Real Estate              rss 419 MB
+  Utilities                rss 416 MB
+leak check at 2016-03-10: 702 rows, mismatched columns none
+  Communication Services   rss 415 MB
+  Consumer Discretionary   rss 443 MB
+  Consumer Staples         rss 418 MB
+  Energy                   rss 417 MB
+  Financials               rss 465 MB
+  Health Care              rss 441 MB
+  Industrials              rss 475 MB
+  Information Technology   rss 453 MB
+  Materials                rss 421 MB
+  Real Estate              rss 422 MB
+  Utilities                rss 418 MB
+  Communication Services   rss 411 MB
+  Consumer Discretionary   rss 443 MB
+  Consumer Staples         rss 419 MB
+  Energy                   rss 417 MB
+  Financials               rss 463 MB
+  Health Care              rss 441 MB
+  Industrials              rss 473 MB
+  Information Technology   rss 452 MB
+  Materials                rss 418 MB
+  Real Estate              rss 425 MB
+  Utilities                rss 421 MB
+leak check at 2024-11-20: 877 rows, mismatched columns none
+  Communication Services   rss 417 MB
+  Consumer Discretionary   rss 452 MB
+  Consumer Staples         rss 428 MB
+  Energy                   rss 427 MB
+  Financials               rss 479 MB
+  Health Care              rss 460 MB
+  Industrials              rss 499 MB
+  Information Technology   rss 485 MB
+  Materials                rss 452 MB
+  Real Estate              rss 459 MB
+  Utilities                rss 454 MB
+
+coverage (share of rows not missing):
+ern_days_since      0.759
+ern_days_to_next    0.759
+ern_due_15d         0.759
+ern_hour            0.759
+ern_ar_3d           0.759
+ern_gap_ar          0.759
+ern_post_ret        0.759
+
+summary:
+                     mean      std     min      50%        max
+ern_days_since    33.8600  49.4867  1.0000  31.0000  2596.0000
+ern_days_to_next  55.1447  40.7707  0.0000  50.0000   314.0000
+ern_due_15d        0.1672   0.3732  0.0000   0.0000     1.0000
+ern_hour           1.2432   0.7763  0.0000   1.0000     2.0000
+ern_ar_3d          0.0030   0.0637 -0.5123   0.0016     0.9118
+ern_gap_ar         0.0019   0.0477 -0.5345   0.0012     0.8812
+ern_post_ret       0.0055   0.1403 -1.5630   0.0015    12.6500
+wrote frame_sp900_ab.parquet: (284816, 64)

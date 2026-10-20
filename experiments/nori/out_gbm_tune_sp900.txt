@@ -1,0 +1,91 @@
+train 52,241 rows / 231 dates   test 232,089 rows / 331 dates   mode raw
+  fold 1: fit 75 dates, val 30 dates (1997-10-07 .. 1999-06-30)
+  fold 2: fit 105 dates, val 31 dates (1999-07-22 .. 2001-05-03)
+  fold 3: fit 136 dates, val 31 dates (2001-05-24 .. 2003-03-14)
+  fold 4: fit 167 dates, val 31 dates (2003-04-04 .. 2005-01-18)
+  fold 5: fit 198 dates, val 31 dates (2005-02-08 .. 2006-11-20)
+  cfg  1/60  cv IC +0.0228 @ 450 it   lr 0.089 leaves 15 depth 4 msl  133 l2 10.0 mf 1.0 squared_error  (16s)
+  cfg  2/60  cv IC +0.0448 @ 450 it   lr 0.027 leaves  7 depth 4 msl  354 l2 10.0 mf 0.7 absolute_error  (36s)
+  cfg  3/60  cv IC +0.0263 @ 600 it   lr 0.057 leaves  7 depth 3 msl  570 l2 0.0  mf 1.0 squared_error  (48s)
+  cfg  4/60  cv IC +0.0254 @ 150 it   lr 0.020 leaves 15 depth 4 msl  417 l2 10.0 mf 0.5 squared_error  (63s)
+  cfg  5/60  cv IC +0.0224 @ 900 it   lr 0.016 leaves 15 depth 4 msl 1248 l2 0.1  mf 0.5 squared_error  (77s)
+  cfg  6/60  cv IC +0.0210 @ 200 it   lr 0.096 leaves  7 depth 4 msl 2721 l2 0.0  mf 1.0 squared_error  (90s)
+  cfg  7/60  cv IC +0.0313 @  50 it   lr 0.019 leaves 31 depth 5 msl 2805 l2 0.0  mf 0.7 absolute_error  (108s)
+  cfg  8/60  cv IC +0.0429 @ 600 it   lr 0.042 leaves  7 depth 4 msl 1375 l2 0.1  mf 0.7 absolute_error  (127s)
+  cfg  9/60  cv IC +0.0220 @ 600 it   lr 0.011 leaves 31 depth 6 msl  426 l2 1.0  mf 0.7 squared_error  (148s)
+  cfg 10/60  cv IC +0.0259 @  25 it   lr 0.071 leaves 15 depth 4 msl  698 l2 10.0 mf 0.5 squared_error  (163s)
+  cfg 11/60  cv IC +0.0252 @ 600 it   lr 0.032 leaves 31 depth 6 msl 1260 l2 1.0  mf 0.5 squared_error  (179s)
+  cfg 12/60  cv IC +0.0411 @ 200 it   lr 0.048 leaves 31 depth 5 msl 1429 l2 10.0 mf 0.5 absolute_error  (200s)
+  cfg 13/60  cv IC +0.0342 @ 900 it   lr 0.016 leaves 15 depth 6 msl 1837 l2 0.0  mf 1.0 absolute_error  (221s)
+  cfg 14/60  cv IC +0.0353 @ 900 it   lr 0.030 leaves 63 depth 6 msl  215 l2 10.0 mf 0.5 absolute_error  (253s)
+  cfg 15/60  cv IC +0.0227 @  25 it   lr 0.052 leaves 15 depth 5 msl  221 l2 10.0 mf 0.7 squared_error  (271s)
+  cfg 16/60  cv IC +0.0227 @ 150 it   lr 0.064 leaves 15 depth 5 msl 2741 l2 10.0 mf 0.5 squared_error  (285s)
+  cfg 17/60  cv IC +0.0241 @ 150 it   lr 0.078 leaves 15 depth 4 msl  689 l2 0.1  mf 1.0 squared_error  (299s)
+  cfg 18/60  cv IC +0.0231 @ 200 it   lr 0.083 leaves 15 depth 4 msl 1654 l2 0.1  mf 1.0 squared_error  (313s)
+  cfg 19/60  cv IC +0.0289 @ 600 it   lr 0.018 leaves 31 depth 5 msl  171 l2 10.0 mf 1.0 absolute_error  (342s)
+  cfg 20/60  cv IC +0.0339 @  50 it   lr 0.067 leaves  7 depth 4 msl  143 l2 0.0  mf 0.7 absolute_error  (362s)
+  cfg 21/60  cv IC +0.0190 @  50 it   lr 0.049 leaves 15 depth 4 msl  338 l2 0.0  mf 0.7 squared_error  (377s)
+  cfg 22/60  cv IC +0.0370 @ 100 it   lr 0.026 leaves  7 depth 5 msl  115 l2 0.1  mf 0.7 absolute_error  (399s)
+  cfg 23/60  cv IC +0.0409 @ 300 it   lr 0.053 leaves 15 depth 4 msl  384 l2 1.0  mf 1.0 absolute_error  (420s)
+  cfg 24/60  cv IC +0.0402 @ 200 it   lr 0.065 leaves 15 depth 4 msl  276 l2 10.0 mf 0.7 absolute_error  (444s)
+  cfg 25/60  cv IC +0.0147 @ 200 it   lr 0.099 leaves  7 depth 3 msl  192 l2 0.0  mf 0.5 squared_error  (456s)
+  cfg 26/60  cv IC +0.0360 @ 900 it   lr 0.018 leaves  7 depth 3 msl 1308 l2 0.0  mf 1.0 absolute_error  (473s)
+  cfg 27/60  cv IC +0.0416 @ 600 it   lr 0.024 leaves  7 depth 3 msl  370 l2 0.1  mf 0.7 absolute_error  (492s)
+  cfg 28/60  cv IC +0.0181 @ 900 it   lr 0.039 leaves  7 depth 4 msl 1142 l2 10.0 mf 0.7 squared_error  (506s)
+  cfg 29/60  cv IC +0.0228 @  50 it   lr 0.023 leaves  7 depth 4 msl  117 l2 0.0  mf 0.5 squared_error  (519s)
+  cfg 30/60  cv IC +0.0454 @ 900 it   lr 0.021 leaves 15 depth 4 msl  657 l2 0.1  mf 0.5 absolute_error  (541s)
+  cfg 31/60  cv IC +0.0234 @ 450 it   lr 0.062 leaves 63 depth 6 msl 1289 l2 1.0  mf 0.7 squared_error  (558s)
+  cfg 32/60  cv IC +0.0161 @ 900 it   lr 0.049 leaves 15 depth 6 msl  104 l2 1.0  mf 0.5 squared_error  (578s)
+  cfg 33/60  cv IC +0.0486 @ 150 it   lr 0.014 leaves  7 depth 5 msl  506 l2 0.1  mf 1.0 absolute_error  (599s)
+  cfg 34/60  cv IC +0.0310 @ 150 it   lr 0.059 leaves 15 depth 4 msl  135 l2 1.0  mf 0.5 absolute_error  (622s)
+  cfg 35/60  cv IC +0.0393 @ 200 it   lr 0.020 leaves  7 depth 4 msl 1782 l2 10.0 mf 0.5 absolute_error  (640s)
+  cfg 36/60  cv IC +0.0380 @ 600 it   lr 0.015 leaves 31 depth 5 msl  184 l2 0.1  mf 0.5 absolute_error  (670s)
+  cfg 37/60  cv IC +0.0429 @ 100 it   lr 0.094 leaves 15 depth 5 msl  786 l2 10.0 mf 1.0 absolute_error  (693s)
+  cfg 38/60  cv IC +0.0174 @ 600 it   lr 0.020 leaves  7 depth 5 msl 2520 l2 0.1  mf 1.0 squared_error  (706s)
+  cfg 39/60  cv IC +0.0375 @ 100 it   lr 0.057 leaves  7 depth 3 msl  295 l2 10.0 mf 1.0 absolute_error  (724s)
+  cfg 40/60  cv IC +0.0215 @ 150 it   lr 0.024 leaves 15 depth 5 msl  502 l2 0.0  mf 0.5 squared_error  (741s)
+  cfg 41/60  cv IC +0.0299 @ 200 it   lr 0.094 leaves 15 depth 4 msl 1238 l2 0.1  mf 1.0 squared_error  (755s)
+  cfg 42/60  cv IC +0.0181 @ 600 it   lr 0.080 leaves  7 depth 5 msl   83 l2 10.0 mf 0.5 squared_error  (769s)
+  cfg 43/60  cv IC +0.0458 @ 900 it   lr 0.018 leaves  7 depth 6 msl  731 l2 10.0 mf 0.5 absolute_error  (790s)
+  cfg 44/60  cv IC +0.0235 @ 900 it   lr 0.023 leaves 15 depth 5 msl 1296 l2 0.1  mf 0.5 squared_error  (805s)
+  cfg 45/60  cv IC +0.0155 @ 900 it   lr 0.024 leaves 15 depth 4 msl  125 l2 0.1  mf 0.7 squared_error  (822s)
+  cfg 46/60  cv IC +0.0400 @ 900 it   lr 0.024 leaves  7 depth 3 msl 1453 l2 1.0  mf 0.7 absolute_error  (839s)
+  cfg 47/60  cv IC +0.0255 @ 450 it   lr 0.054 leaves 15 depth 4 msl  721 l2 0.1  mf 0.5 squared_error  (853s)
+  cfg 48/60  cv IC +0.0324 @ 900 it   lr 0.018 leaves 31 depth 6 msl 2733 l2 0.0  mf 0.7 absolute_error  (872s)
+  cfg 49/60  cv IC +0.0423 @ 900 it   lr 0.034 leaves 31 depth 5 msl  747 l2 1.0  mf 0.5 absolute_error  (896s)
+  cfg 50/60  cv IC +0.0309 @ 450 it   lr 0.047 leaves  7 depth 3 msl  642 l2 1.0  mf 0.5 squared_error  (909s)
+  cfg 51/60  cv IC +0.0347 @ 900 it   lr 0.014 leaves 31 depth 6 msl  133 l2 1.0  mf 1.0 absolute_error  (945s)
+  cfg 52/60  cv IC +0.0323 @ 900 it   lr 0.014 leaves 15 depth 6 msl   92 l2 0.1  mf 0.5 absolute_error  (975s)
+  cfg 53/60  cv IC +0.0177 @ 600 it   lr 0.034 leaves  7 depth 3 msl  413 l2 10.0 mf 1.0 squared_error  (994s)
+  cfg 54/60  cv IC +0.0318 @ 100 it   lr 0.063 leaves 15 depth 6 msl 1769 l2 1.0  mf 0.7 absolute_error  (1020s)
+  cfg 55/60  cv IC +0.0422 @ 450 it   lr 0.013 leaves  7 depth 6 msl  295 l2 0.0  mf 0.5 absolute_error  (1040s)
+  cfg 56/60  cv IC +0.0288 @ 150 it   lr 0.018 leaves 15 depth 5 msl  226 l2 0.1  mf 0.7 squared_error  (1059s)
+  cfg 57/60  cv IC +0.0252 @ 100 it   lr 0.045 leaves 31 depth 6 msl  734 l2 0.1  mf 0.5 squared_error  (1076s)
+  cfg 58/60  cv IC +0.0291 @  25 it   lr 0.048 leaves  7 depth 4 msl  325 l2 0.0  mf 0.5 squared_error  (1090s)
+  cfg 59/60  cv IC +0.0438 @ 600 it   lr 0.016 leaves  7 depth 4 msl  361 l2 0.0  mf 0.7 absolute_error  (1110s)
+  cfg 60/60  cv IC +0.0227 @ 450 it   lr 0.021 leaves 31 depth 6 msl 1651 l2 0.0  mf 1.0 squared_error  (1127s)
+
+nori_fair's settings, same CV: best +0.0197 @ 300 it; at 300 it +0.0197
+
+Top 5 by CV IC (folds shown, to see how stable they are).
+The top score is the max of N_CONFIGS noisy estimates, so it is optimistic.
+  +0.0486  folds [0.021, 0.074, 0.084, 0.043, 0.021]  150 it  {'learning_rate': 0.013573639090316565, 'max_leaf_nodes': 7, 'max_depth': 5, 'min_samples_leaf': 506, 'l2_regularization': 0.1, 'max_features': 1.0, 'loss': 'absolute_error'}
+  +0.0458  folds [0.025, 0.051, 0.088, 0.033, 0.032]  900 it  {'learning_rate': 0.01828718238053931, 'max_leaf_nodes': 7, 'max_depth': 6, 'min_samples_leaf': 731, 'l2_regularization': 10.0, 'max_features': 0.5, 'loss': 'absolute_error'}
+  +0.0454  folds [0.023, 0.059, 0.071, 0.031, 0.042]  900 it  {'learning_rate': 0.02061265315817064, 'max_leaf_nodes': 15, 'max_depth': 4, 'min_samples_leaf': 657, 'l2_regularization': 0.1, 'max_features': 0.5, 'loss': 'absolute_error'}
+  +0.0448  folds [0.033, 0.052, 0.082, 0.036, 0.021]  450 it  {'learning_rate': 0.026504917024335824, 'max_leaf_nodes': 7, 'max_depth': 4, 'min_samples_leaf': 354, 'l2_regularization': 10.0, 'max_features': 0.7, 'loss': 'absolute_error'}
+  +0.0438  folds [0.024, 0.063, 0.075, 0.033, 0.024]  600 it  {'learning_rate': 0.01646090012944252, 'max_leaf_nodes': 7, 'max_depth': 4, 'min_samples_leaf': 361, 'l2_regularization': 0.0, 'max_features': 0.7, 'loss': 'absolute_error'}
+
+bag skipped: the tuned config uses every feature, so it is deterministic
+
+======================================================================
+TEST (232,089 rows, all names/date, raw inputs)
+gbm-default early-stopped at 247 of 300 iterations
+       gbm-default  IC +0.0182  t +2.57  flat dates 0/331
+         gbm-tuned  IC +0.0109  t +1.93  flat dates 0/331   vs default: dIC -0.0073 t -0.97
+======================================================================
+
+ENTRY AT NEXT OPEN (232,089 rows with target_open); no choice depends on this
+                       IC vs close-entry      IC vs open-entry    change
+       gbm-default  +0.0182 (t +2.57)  +0.0162 (t +2.26)  -0.0021
+         gbm-tuned  +0.0109 (t +1.93)  +0.0083 (t +1.48)  -0.0027
+saved gbm_tuned_sp900_nall.json and gbm_tuned_preds_sp900_nall.parquet

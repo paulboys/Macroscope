@@ -1,0 +1,22 @@
+{
+  "cfg": {
+    "learning_rate": 0.02061265315817064,
+    "max_leaf_nodes": 15,
+    "max_depth": 4,
+    "min_samples_leaf": 419,
+    "l2_regularization": 0.1,
+    "max_features": 0.5,
+    "loss": "absolute_error"
+  },
+  "n_iter": 200,
+  "cv_ic": 0.09138721610636077,
+  "fold_ic": [
+    0.11505883633036228,
+    0.08505072720036372,
+    0.1448685114923048,
+    0.06030119247085506,
+    0.05165681303791802
+  ],
+  "default_cv_ic": 0.03540822621779508,
+  "mode": "raw"
+}
