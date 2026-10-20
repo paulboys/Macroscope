@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import sys
 import time
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -38,7 +39,14 @@ EMBARGO = pd.Timedelta(days=30)
 TOP_K, COST = 20, 0.0010
 HELPER = ("target", "naive_momentum", "ticker", "bar")
 MARKET = ("bench_ret_5d", "bench_ret_20d", "bench_vol_20", "vix", "vix_chg_5d")
-GROUPS = {"res": ("res_",), "sec": ("sec_",), "on": ("on_", "id_"), "oth": ("oth_",)}
+GROUPS = {
+    "res": ("res_",),
+    "sec": ("sec_",),
+    "on": ("on_", "id_"),
+    "oth": ("oth_",),
+    "ern": ("ern_",),
+}
+PHASE_A = ("res", "sec", "on", "oth")
 GBM_PARAMS = dict(
     loss="absolute_error",
     learning_rate=0.03,
@@ -88,7 +96,9 @@ def main() -> None:
     new = [c for c in frame.columns[36:] if c != "target_open"]
     group_cols = {g: [c for c in new if c.startswith(p)] for g, p in GROUPS.items()}
     variants = {"baseline": base, **{f"+{g}": base + cols for g, cols in group_cols.items()}}
-    variants["+A"] = base + new
+    a_cols = [c for g in PHASE_A for c in group_cols[g]]
+    variants["+A"] = base + a_cols
+    variants["+A+ern"] = base + new
     stock_cols = [c for c in base + new if c not in MARKET]
 
     dates = frame.index.to_numpy()
@@ -203,14 +213,14 @@ def main() -> None:
             .groupby(pd.DatetimeIndex(results[("frozen", m, n)].index).year)
             .mean()
             for m in ("gbm", "ridge")
-            for n in ("baseline", "+A")
+            for n in ("baseline", "+A", "+ern", "+A+ern")
         }
     )
     print(by_year.to_string(float_format=lambda v: f"{v:+.4f}"))
 
     print(f"\nGATE (walk-forward): {GATE}")
     for m in ("gbm", "ridge"):
-        r = row(("walk", m, "+A"))
+        r = row(("walk", m, "+A+ern"))
         ok = (
             r["IC"] >= 0.03
             and r["t"] > 3
@@ -219,9 +229,9 @@ def main() -> None:
             and r["IC_2023+"] > 0
             and r["top20_net"] > 0
         )
-        print(f"  {m}:+A  {'PASS' if ok else 'FAIL'}")
+        print(f"  {m}:+A+ern  {'PASS' if ok else 'FAIL'}")
     pd.DataFrame({f"{k[0]}:{k[1]}:{k[2]}": v for k, v in results.items()}).to_parquet(
-        "eval_features_ic.parquet"
+        f"eval_features_ic_{Path(sys.argv[1]).stem}.parquet"
     )
 
 
